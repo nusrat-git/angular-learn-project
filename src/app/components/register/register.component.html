@@ -1,0 +1,23 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <input formControlName="username" placeholder="Username" />
+  <div
+    *ngIf="
+      registerForm.controls.username.invalid &&
+      registerForm.controls.username.touched
+    "
+  >
+    Username is required and must be at least 3 characters.
+  </div>
+
+  <input formControlName="email" placeholder="Email" />
+  <div
+    *ngIf="
+      registerForm.controls.email.invalid && registerForm.controls.email.touched
+    "
+  >
+    Valid email required.
+  </div>
+
+  <input type="password" formControlName="password" placeholder="Password" />
+  <button type="submit" [disabled]="registerForm.invalid">Register</button>
+</form>

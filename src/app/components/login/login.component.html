@@ -1,3 +1,25 @@
 <h2>Login Controls</h2>
 <button (click)="login()">Login</button>
 <button (click)="logout()">Logout</button>
+
+<form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+  <label>Username:</label>
+  <input
+    type="text"
+    name="username"
+    [(ngModel)]="username"
+    placeholder="onput"
+    required
+  />
+
+  <label>Password:</label>
+  <input
+    type="password"
+    name="password"
+    [(ngModel)]="password"
+    placeholder="onput"
+    required
+  />
+
+  <button type="submit" [disabled]="!loginForm.form.valid">Login</button>
+</form>

@@ -3,6 +3,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { BlogListComponent } from './pages/blogList/blog-list.component';
 import { BlogDetailComponent } from './pages/blogDetail/blog-detail.component';
 import { authGuard } from './guards/auth/auth.guard';
+import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
+import { EmployeeListComponent } from './pages/employee-list/employee-list.component';
 
 export const routes: Routes = [
   {
@@ -16,6 +19,18 @@ export const routes: Routes = [
   {
     path: 'blogs/:id',
     component: BlogDetailComponent,
+  },
+  {
+    path: 'employees',
+    component: EmployeeListComponent,
+  },
+  {
+    path: 'registration',
+    component: RegisterComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
   },
   {
     path: 'admin',

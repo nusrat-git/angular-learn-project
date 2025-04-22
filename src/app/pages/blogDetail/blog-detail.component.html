@@ -1,1 +1,8 @@
-<p>blog-detail works!</p>
+<div *ngIf="blog">
+  <h2>{{ blog.title }}</h2>
+  <p>{{ blog.content }}</p>
+</div>
+
+<div *ngIf="!blog">
+  <p>Blog not found.</p>
+</div>

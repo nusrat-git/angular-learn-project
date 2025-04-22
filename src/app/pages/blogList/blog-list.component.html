@@ -1,1 +1,9 @@
-<p>blog-list works!</p>
+<h1>Blog List</h1>
+
+<ul>
+  <li *ngFor="let blog of blogs">
+    <a [routerLink]="['/blogs', blog.id]">
+      <app-blog-card [blog]="blog"></app-blog-card>
+    </a>
+  </li>
+</ul>

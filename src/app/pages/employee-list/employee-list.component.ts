@@ -8,6 +8,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { CustomValidators } from '../../validators/custom-validators';
 
 @Component({
   selector: 'app-employee-list',
@@ -20,7 +21,14 @@ export class EmployeeListComponent {
 
   constructor(private fb: FormBuilder) {
     this.employeeForm = this.fb.group({
-      name: ['', [Validators.required, Validators.maxLength(20)]],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(20),
+          CustomValidators.uniqueName(),
+        ],
+      ],
 
       email: ['', [Validators.required, Validators.email]],
 
@@ -31,6 +39,7 @@ export class EmployeeListComponent {
       skills: this.fb.array([this.fb.control('', Validators.required)]),
     });
   }
+
   // employeeForm = new FormGroup({
   //   name: new FormControl('', [Validators.required, Validators.maxLength(20)]),
 

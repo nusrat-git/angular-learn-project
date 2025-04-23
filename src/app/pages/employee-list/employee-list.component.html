@@ -111,6 +111,8 @@
   <button type="submit" [disabled]="employeeForm.invalid">
     {{ editMode ? "Update Employee" : "Add Employee" }}
   </button>
+  |
+  <button type="button" (click)="onReset()">Reset</button>
 </form>
 
 <div>

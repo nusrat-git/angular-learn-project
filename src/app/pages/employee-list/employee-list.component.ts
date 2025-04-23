@@ -156,4 +156,9 @@ export class EmployeeListComponent {
   onDeleteEmployee(id: number) {
     this.employees = this.employees.filter((emp) => emp.id !== id);
   }
+
+  onReset() {
+    this.employeeForm.reset();
+    this.skills.clear();
+  }
 }

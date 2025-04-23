@@ -9,15 +9,18 @@ import {
   Validators,
 } from '@angular/forms';
 import { CustomValidators } from '../../validators/custom-validators';
+import { EmployeeCardComponent } from '../../components/employee-card/employee-card.component';
 
 @Component({
   selector: 'app-employee-list',
-  imports: [ReactiveFormsModule, NgIf, NgFor],
+  imports: [ReactiveFormsModule, NgIf, NgFor, EmployeeCardComponent],
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.css',
 })
 export class EmployeeListComponent {
   employeeForm: FormGroup;
+
+  employees: any = [];
 
   constructor(private fb: FormBuilder) {
     this.employeeForm = this.fb.group({
@@ -36,7 +39,9 @@ export class EmployeeListComponent {
 
       department: ['', [Validators.required, Validators.maxLength(10)]],
 
-      skills: this.fb.array([this.fb.control('', Validators.required)]),
+      // skills: this.fb.array([this.fb.control('', Validators.required)]),
+
+      skills: this.fb.array([], CustomValidators.minLengthArray(1)),
     });
   }
 
@@ -62,8 +67,16 @@ export class EmployeeListComponent {
     return this.employeeForm.get('skills') as FormArray;
   }
 
+  // addSkill() {
+  //   this.skills.push(new FormControl('', Validators.required));
+  // }
+
+  skillInput = new FormControl('', Validators.required);
   addSkill() {
-    this.skills.push(new FormControl('', Validators.required));
+    if (this.skillInput.valid) {
+      this.skills.push(new FormControl(this.skillInput.value));
+      this.skillInput.reset();
+    }
   }
 
   removeSkill(index: number) {
@@ -73,6 +86,7 @@ export class EmployeeListComponent {
   onSubmit() {
     if (this.employeeForm.valid) {
       console.log(this.employeeForm.value);
+      this.employees.push(this.employeeForm.value);
     }
   }
 }

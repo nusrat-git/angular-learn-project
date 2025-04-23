@@ -56,13 +56,37 @@
   <br />
 
   <!-- skills -->
-  <div formArrayName="skills">
+  <!-- <div formArrayName="skills">
     <label>Skills:</label>
     <div *ngFor="let skill of skills.controls; let i = index">
       <input [formControlName]="i" placeholder="Skill" />
       <button type="button" (click)="removeSkill(i)">Remove</button>
     </div>
     <button type="button" (click)="addSkill()">Add Skill</button>
+  </div> -->
+  <div>
+    <div>
+      <label>Skills : </label>
+      <input [formControl]="skillInput" placeholder="Enter skill" />
+      <button
+        type="button"
+        (click)="addSkill()"
+        [disabled]="skillInput.invalid"
+      >
+        Add Skill
+      </button>
+    </div>
+
+    <div formArrayName="skills">
+      <div *ngFor="let skill of skills.controls; let i = index">
+        <span>{{ skill.value }} </span>
+        <button type="button" (click)="removeSkill(i)">Remove</button>
+      </div>
+    </div>
+
+    <div *ngIf=" skillInput.touched && skills.errors?.['minLengthArray']">
+      <small>You must add at least one skill</small>
+    </div>
   </div>
 
   <!-- <div>
@@ -78,5 +102,16 @@
     </div>
   </div> -->
   <br />
-  <button type="submit" [disabled]="employeeForm.invalid">Register</button>
+  <button type="submit" [disabled]="employeeForm.invalid">Add employee</button>
 </form>
+
+<div>
+  <h1>Employees</h1>
+  <ul>
+    <li *ngFor="let employee of employees">
+      <!-- <a [routerLink]="['/employees', employee.id]">
+    </a> -->
+      <app-employee-card [employee]="employee"></app-employee-card>
+    </li>
+  </ul>
+</div>

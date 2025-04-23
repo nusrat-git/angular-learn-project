@@ -3,12 +3,18 @@
   <div>
     <label>Name : </label>
     <input type="text" formControlName="name" placeholder="Your name" />
-    <div
-      *ngIf="
-        employeeForm.get('name')?.invalid && employeeForm.get('name')?.touched
-      "
-    >
-      <small> Name is required and can't be more than 20 characters</small>
+    <div *ngIf="employeeForm.get('name')?.touched">
+      <small *ngIf="employeeForm.get('name')?.errors?.['required']">
+        Name is required
+      </small>
+
+      <small *ngIf="employeeForm.get('name')?.errors?.['maxlength']">
+        Name can't be more than 20 characters
+      </small>
+
+      <small *ngIf="employeeForm.get('name')?.errors?.['nameNotUnique']">
+        Name should be unique
+      </small>
     </div>
   </div>
   <br />
@@ -102,7 +108,9 @@
     </div>
   </div> -->
   <br />
-  <button type="submit" [disabled]="employeeForm.invalid">Add employee</button>
+  <button type="submit" [disabled]="employeeForm.invalid">
+    {{ editMode ? "Update Employee" : "Add Employee" }}
+  </button>
 </form>
 
 <div>
@@ -111,7 +119,11 @@
     <li *ngFor="let employee of employees">
       <!-- <a [routerLink]="['/employees', employee.id]">
     </a> -->
-      <app-employee-card [employee]="employee"></app-employee-card>
+      <app-employee-card
+        [employee]="employee"
+        (edit)="onEditEmployee($event)"
+        (delete)="onDeleteEmployee($event)"
+      ></app-employee-card>
     </li>
   </ul>
 </div>

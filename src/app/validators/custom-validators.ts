@@ -1,10 +1,13 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export class CustomValidators {
-  static uniqueName(): ValidatorFn {
+  static uniqueName(existingNames: string[]): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      const hasSpace = (control.value || '').includes(' ');
-      return hasSpace ? { noSpacesAllowed: true } : null;
+      const currentName = control.value.trim().toLowerCase();
+      const isDuplicate = existingNames.find(
+        (name) => name.trim().toLowerCase() === currentName
+      );
+      return isDuplicate ? { nameNotUnique: true } : null;
     };
   }
 

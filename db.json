@@ -1,0 +1,35 @@
+{
+  "employees": [
+    {
+      "id": "0",
+      "name": "nusrat",
+      "email": "nusrat@gmail.com",
+      "position": "developer",
+      "department": "biznify",
+      "address": {
+        "street": "123 Main St",
+        "city": "New York",
+        "postalCode": "10001"
+      },
+      "skills": [
+        "html",
+        "js"
+      ]
+    },
+    {
+      "id": "1",
+      "name": "fsdfasd",
+      "email": "hehe@agsd",
+      "position": "fsdfsd",
+      "department": "fasfsdf",
+      "address": {
+        "street": "fsdfs",
+        "city": "fsdf",
+        "postalCode": "23423"
+      },
+      "skills": [
+        "fasdgdg new"
+      ]
+    }
+  ]
+}

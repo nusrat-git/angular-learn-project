@@ -1,5 +1,5 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { CustomValidators } from '../../validators/custom-validators';
 import { EmployeeCardComponent } from '../../components/employee-card/employee-card.component';
+import { DataService } from '../../services/data/data.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -17,29 +18,20 @@ import { EmployeeCardComponent } from '../../components/employee-card/employee-c
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.css',
 })
-export class EmployeeListComponent {
+export class EmployeeListComponent implements OnInit {
   employeeForm: FormGroup;
   private id = 1;
-  editEmployeeId: number | null = null;
+  editEmployeeId: string | null = null;
   editMode = false;
+  employees: any;
 
-  employees: any[] = [
-    {
-      id: 0,
-      name: 'nusrat',
-      email: 'nusrat@gmail.com',
-      position: 'developer',
-      department: 'biznify',
-      address: {
-        street: '123 Main St',
-        city: 'New York',
-        postalCode: '10001',
-      },
-      skills: ['html', 'js'],
-    },
-  ];
+  ngOnInit(): void {
+    this.dataService.getData().subscribe((response) => {
+      this.employees = response;
+    });
+  }
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private dataService: DataService) {
     this.employeeForm = this.fb.group({
       name: [
         '',
@@ -48,7 +40,9 @@ export class EmployeeListComponent {
           Validators.maxLength(20),
           this.editMode
             ? null
-            : CustomValidators.uniqueName(this.employees.map((e) => e.name)),
+            : CustomValidators.uniqueName(
+                this.employees?.map((e: any) => e.name)
+              ),
         ],
       ],
 
@@ -126,19 +120,43 @@ export class EmployeeListComponent {
   //   }
   // }
 
+  fetchEmployees() {
+    this.dataService.getData().subscribe({
+      next: (employees) => {
+        this.employees = employees;
+      },
+      error: (err) => {
+        console.error('Failed to fetch employees:', err);
+      },
+    });
+  }
+
   onSubmit() {
     if (this.employeeForm.valid) {
       const updatedEmployee = {
-        id: this.editMode ? this.editEmployeeId : this.id++,
+        id: this.editMode
+          ? this.editEmployeeId?.toString()
+          : (this.id++).toString(),
         ...this.employeeForm.value,
       };
 
       if (this.editMode) {
-        this.employees = this.employees.map((emp) =>
-          emp.id === this.editEmployeeId ? updatedEmployee : emp
-        );
+        // this.employees = this.employees?.map((emp: any) =>
+        //   emp.id === this.editEmployeeId ? updatedEmployee : emp
+        // );
+
+        this.dataService
+          .updateEmployee(this.editEmployeeId, updatedEmployee)
+          .subscribe((response) => {
+            this.fetchEmployees();
+            // this.employees = this.employees.map((emp: any) =>
+            //   emp.id === this.editEmployeeId ? response : emp
+            // );
+          });
       } else {
-        this.employees.push(updatedEmployee);
+        this.dataService.addEmployee(updatedEmployee).subscribe((response) => {
+          this.fetchEmployees();
+        });
       }
 
       this.onReset();
@@ -148,30 +166,56 @@ export class EmployeeListComponent {
     }
   }
 
-  onEditEmployee(id: number) {
+  onEditEmployee(id: string) {
     this.editMode = true;
     this.editEmployeeId = id;
 
-    const employee = this.employees.find((emp) => emp.id === id);
-    if (employee) {
-      this.employeeForm.patchValue({
-        name: employee.name,
-        email: employee.email,
-        position: employee.position,
-        department: employee.department,
-        address: employee.address,
-      });
+    this.dataService.getEmployee(id).subscribe({
+      next: (employee) => {
+        console.log('Employee fetched:', employee);
+        this.employeeForm.patchValue(employee);
 
-      this.skills.clear();
+        this.skills.clear();
 
-      employee.skills.forEach((skill: string) => {
-        this.skills.push(new FormControl(skill));
-      });
-    }
+        employee?.skills.forEach((skill: string) => {
+          this.skills.push(new FormControl(skill));
+        });
+      },
+      error: (err) => {
+        console.error(err.message);
+      },
+    });
+
+    // const employee = this.employees?.find((emp: any) => emp.id === id);
+    // if (employee) {
+    //   this.employeeForm.patchValue({
+    //     name: employee?.name,
+    //     email: employee?.email,
+    //     position: employee?.position,
+    //     department: employee?.department,
+    //     address: employee?.address,
+    //   });
+
+    //   this.skills.clear();
+
+    //   employee?.skills.forEach((skill: string) => {
+    //     this.skills.push(new FormControl(skill));
+    //   });
+    // }
   }
 
-  onDeleteEmployee(id: number) {
-    this.employees = this.employees.filter((emp) => emp.id !== id);
+  onDeleteEmployee(id: string) {
+    // this.employees = this.employees?.filter((emp: any) => emp.id !== id);
+
+    this.dataService.deleteEmployee(id).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.fetchEmployees();
+      },
+      error: (err) => {
+        console.error(err.message);
+      },
+    });
   }
 
   onReset() {

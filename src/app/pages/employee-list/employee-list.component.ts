@@ -19,6 +19,9 @@ import { EmployeeCardComponent } from '../../components/employee-card/employee-c
 })
 export class EmployeeListComponent {
   employeeForm: FormGroup;
+  private id = 1;
+  editEmployeeId: number | null = null;
+  editMode = false;
 
   employees: any[] = [
     {
@@ -27,13 +30,14 @@ export class EmployeeListComponent {
       email: 'nusrat@gmail.com',
       position: 'developer',
       department: 'biznify',
+      address: {
+        street: '123 Main St',
+        city: 'New York',
+        postalCode: '10001',
+      },
       skills: ['html', 'js'],
     },
   ];
-
-  private id = 1;
-  editEmployeeId: number | null = null;
-  editMode = false;
 
   constructor(private fb: FormBuilder) {
     this.employeeForm = this.fb.group({
@@ -42,7 +46,9 @@ export class EmployeeListComponent {
         [
           Validators.required,
           Validators.maxLength(20),
-          CustomValidators.uniqueName(this.employees.map((e) => e.name)),
+          this.editMode
+            ? null
+            : CustomValidators.uniqueName(this.employees.map((e) => e.name)),
         ],
       ],
 
@@ -53,6 +59,12 @@ export class EmployeeListComponent {
       department: ['', [Validators.required, Validators.maxLength(10)]],
 
       // skills: this.fb.array([this.fb.control('', Validators.required)]),
+
+      address: this.fb.group({
+        street: ['', Validators.required],
+        city: ['', Validators.required],
+        postalCode: ['', [Validators.required]],
+      }),
 
       skills: this.fb.array([], CustomValidators.minLengthArray(1)),
     });
@@ -76,6 +88,10 @@ export class EmployeeListComponent {
   //   skills: new FormArray([new FormControl('', [Validators.required])]),
   // });
 
+  get address(): FormGroup {
+    return this.employeeForm.get('address') as FormGroup;
+  }
+
   get skills(): FormArray {
     return this.employeeForm.get('skills') as FormArray;
   }
@@ -85,6 +101,7 @@ export class EmployeeListComponent {
   // }
 
   skillInput = new FormControl('', Validators.required);
+
   addSkill() {
     if (this.skillInput.valid) {
       this.skills.push(new FormControl(this.skillInput.value));
@@ -124,8 +141,7 @@ export class EmployeeListComponent {
         this.employees.push(updatedEmployee);
       }
 
-      this.employeeForm.reset();
-      this.skills.clear();
+      this.onReset();
       // this.skillInput.reset();
       this.editMode = false;
       this.editEmployeeId = null;
@@ -143,6 +159,7 @@ export class EmployeeListComponent {
         email: employee.email,
         position: employee.position,
         department: employee.department,
+        address: employee.address,
       });
 
       this.skills.clear();

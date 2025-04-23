@@ -1,8 +1,16 @@
-<p><strong>Name:</strong> {{ employee.name }}</p>
-<p><strong>Email:</strong> {{ employee.email }}</p>
-<p><strong>Position:</strong> {{ employee.position }}</p>
-<p><strong>Department:</strong> {{ employee.department }}</p>
-<p><strong>Skills:</strong> {{ employee.skills.join(", ") }}</p>
-<button (click)="onEdit()">edit</button> |
-<button (click)="onDelete()">delete</button>
-<hr />
+<tr>
+  <td>{{ employee.name }}</td>
+  <td>{{ employee.email }}</td>
+  <td>{{ employee.position }}</td>
+  <td>{{ employee.department }}</td>
+  <td>{{ employee.skills.join(", ") }}</td>
+  <td>
+    <p>Street: {{ employee.address.street }}</p>
+    <p>City: {{ employee.address.city }}</p>
+    <p>Postal Code: {{ employee.address.postalCode }}</p>
+  </td>
+  <td>
+    <button (click)="onEdit()">Edit</button> |
+    <button (click)="onDelete()">Delete</button>
+  </td>
+</tr>

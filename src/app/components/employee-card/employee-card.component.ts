@@ -1,8 +1,9 @@
+import { NgFor } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-employee-card',
-  imports: [],
+  imports: [NgFor],
   templateUrl: './employee-card.component.html',
   styleUrl: './employee-card.component.css',
 })

@@ -30,6 +30,21 @@
       "skills": [
         "fasdgdg new"
       ]
+    },
+    {
+      "id": "1",
+      "name": "nusrat",
+      "email": "nus@sdklgjd",
+      "position": "gsdfgdfg",
+      "department": "dfgdfgdf",
+      "address": {
+        "street": "gdfgdf",
+        "city": "dfgdfgdf",
+        "postalCode": "34235"
+      },
+      "skills": [
+        "gdfg"
+      ]
     }
   ]
 }

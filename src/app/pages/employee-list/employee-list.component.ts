@@ -11,10 +11,19 @@ import {
 import { CustomValidators } from '../../validators/custom-validators';
 import { EmployeeCardComponent } from '../../components/employee-card/employee-card.component';
 import { DataService } from '../../services/data/data.service';
+import { MyCustomPipe } from '../../pipes/my-custom.pipe';
+import { CustomAttributeDirective } from '../../directives/custom-attribute.directive';
 
 @Component({
   selector: 'app-employee-list',
-  imports: [ReactiveFormsModule, NgIf, NgFor, EmployeeCardComponent],
+  imports: [
+    ReactiveFormsModule,
+    NgIf,
+    NgFor,
+    EmployeeCardComponent,
+    MyCustomPipe,
+    CustomAttributeDirective,
+  ],
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.css',
 })
@@ -23,28 +32,11 @@ export class EmployeeListComponent implements OnInit {
   private id = 1;
   editEmployeeId: string | null = null;
   editMode = false;
-  employees: any;
-
-  ngOnInit(): void {
-    this.dataService.getData().subscribe((response) => {
-      this.employees = response;
-    });
-  }
+  employees: any = [];
 
   constructor(private fb: FormBuilder, private dataService: DataService) {
     this.employeeForm = this.fb.group({
-      name: [
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(20),
-          this.editMode
-            ? null
-            : CustomValidators.uniqueName(
-                this.employees?.map((e: any) => e.name)
-              ),
-        ],
-      ],
+      name: ['', [Validators.required, Validators.maxLength(20)]],
 
       email: ['', [Validators.required, Validators.email]],
 
@@ -61,6 +53,22 @@ export class EmployeeListComponent implements OnInit {
       }),
 
       skills: this.fb.array([], CustomValidators.minLengthArray(1)),
+    });
+  }
+
+  ngOnInit(): void {
+    this.dataService.getData().subscribe((response) => {
+      this.employees = response;
+      this.employeeForm.get('name')?.setValidators([
+        Validators.required,
+        Validators.maxLength(20),
+        CustomValidators.uniqueName(
+          this.employees?.map((e: any) => e.name),
+          this.editMode
+        ),
+      ]);
+
+      this.employeeForm.get('name')?.updateValueAndValidity();
     });
   }
 

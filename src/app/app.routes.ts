@@ -6,6 +6,7 @@ import { authGuard } from './guards/auth/auth.guard';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { EmployeeListComponent } from './pages/employee-list/employee-list.component';
+import { StudentListComponent } from './pages/student-list/student-list.component';
 
 export const routes: Routes = [
   {
@@ -23,6 +24,10 @@ export const routes: Routes = [
   {
     path: 'employees',
     component: EmployeeListComponent,
+  },
+  {
+    path: 'students',
+    component: StudentListComponent,
   },
   {
     path: 'registration',

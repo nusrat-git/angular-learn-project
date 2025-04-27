@@ -20,7 +20,7 @@ import { CustomAttributeDirective } from '../../directives/custom-attribute.dire
     ReactiveFormsModule,
     NgIf,
     NgFor,
-    EmployeeCardComponent,
+    // EmployeeCardComponent,
     MyCustomPipe,
     CustomAttributeDirective,
   ],
@@ -34,39 +34,76 @@ export class EmployeeListComponent implements OnInit {
   editMode = false;
   employees: any = [];
 
-  constructor(private fb: FormBuilder, private dataService: DataService) {
-    this.employeeForm = this.fb.group({
-      name: ['', [Validators.required, Validators.maxLength(20)]],
+  createEmployeeForm(employeeData: any = null): FormGroup {
+    return this.fb.group({
+      name: [
+        employeeData?.name || '',
+        [
+          Validators.required,
+          Validators.maxLength(20),
+          CustomValidators.uniqueName(
+            this.employees?.map((e: any) => e.name),
+            this.editMode
+          ),
+        ],
+      ],
 
-      email: ['', [Validators.required, Validators.email]],
+      email: [
+        employeeData?.email || '',
+        [Validators.required, Validators.email],
+      ],
 
-      position: ['', [Validators.required, Validators.maxLength(15)]],
+      position: [
+        employeeData?.position || '',
+        [Validators.required, Validators.maxLength(15)],
+      ],
 
-      department: ['', [Validators.required, Validators.maxLength(10)]],
-
-      // skills: this.fb.array([this.fb.control('', Validators.required)]),
+      department: [
+        employeeData?.department || '',
+        [Validators.required, Validators.maxLength(10)],
+      ],
 
       address: this.fb.group({
-        street: ['', Validators.required],
-        city: ['', Validators.required],
-        postalCode: ['', [Validators.required]],
+        street: [employeeData?.address?.street || '', Validators.required],
+        city: [employeeData?.address?.city || '', Validators.required],
+        postalCode: [
+          employeeData?.address?.postalCode || '',
+          Validators.required,
+        ],
       }),
 
-      skills: this.fb.array([], CustomValidators.minLengthArray(1)),
+      skills: this.fb.array(
+        (employeeData?.skills || []).map((skill: any) =>
+          this.fb.control(skill)
+        ),
+        CustomValidators.minLengthArray(1)
+      ),
+      // skills: this.fb.array([], CustomValidators.minLengthArray(1)),
     });
+  }
+
+  constructor(private fb: FormBuilder, private dataService: DataService) {
+    this.employeeForm = this.createEmployeeForm();
+
+    // this.employeeForm = this.fb.group({
+    //   name: ['', [Validators.required, Validators.maxLength(20)]],
+
+    //   // skills: this.fb.array([this.fb.control('', Validators.required)]),
+
+    // skills: this.fb.array([], CustomValidators.minLengthArray(1)),
+    // });
   }
 
   ngOnInit(): void {
     this.dataService.getData().subscribe((response) => {
       this.employees = response;
-      this.employeeForm.get('name')?.setValidators([
-        Validators.required,
-        Validators.maxLength(20),
-        CustomValidators.uniqueName(
-          this.employees?.map((e: any) => e.name),
-          this.editMode
-        ),
-      ]);
+      this.employeeForm
+        .get('name')
+        ?.setValidators([
+          Validators.required,
+          Validators.maxLength(20),
+          CustomValidators.uniqueName(this.employees?.map((e: any) => e.name)),
+        ]);
 
       this.employeeForm.get('name')?.updateValueAndValidity();
     });
@@ -181,13 +218,14 @@ export class EmployeeListComponent implements OnInit {
     this.dataService.getEmployee(id).subscribe({
       next: (employee) => {
         console.log('Employee fetched:', employee);
+        this.employeeForm = this.createEmployeeForm(employee);
         this.employeeForm.patchValue(employee);
 
-        this.skills.clear();
+        // this.skills.clear();
 
-        employee?.skills.forEach((skill: string) => {
-          this.skills.push(new FormControl(skill));
-        });
+        // employee?.skills.forEach((skill: string) => {
+        //   this.skills.push(new FormControl(skill));
+        // });
       },
       error: (err) => {
         console.error(err.message);

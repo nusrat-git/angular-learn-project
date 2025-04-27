@@ -72,14 +72,12 @@
     >
       <small>Street is required</small>
     </div>
-    |
 
     <label>City : </label>
     <input type="text" formControlName="city" placeholder="input" />
     <div *ngIf="address.get('city')?.invalid && address.get('city')?.touched">
       <small>City is required</small>
     </div>
-    |
 
     <label>Zip Code : </label>
     <input type="text" formControlName="postalCode" placeholder="input" />
@@ -143,7 +141,7 @@
   <button type="submit" [disabled]="employeeForm.invalid">
     {{ editMode ? "Update Employee" : "Add Employee" }}
   </button>
-  |
+
   <button type="button" (click)="onReset()">Reset</button>
 </form>
 
@@ -174,7 +172,7 @@
           <p>Postal Code: {{ employee.address.postalCode }}</p>
         </td>
         <td>
-          <button (click)="onEditEmployee(employee.id)">Edit</button> |
+          <button (click)="onEditEmployee(employee.id)">Edit</button>
           <button (click)="onDeleteEmployee(employee.id)">Delete</button>
         </td>
       </tr>

@@ -1,8 +1,14 @@
-import { NgFor } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DataService } from '../../services/data/data.service';
 import { EmployeeFormComponent } from '../../components/employee-form/employee-form.component';
+import {
+  Employee,
+  EmployeeService,
+} from '../../services/employee/employee.service';
+import { Observable } from 'rxjs';
+import { ModalService } from '../../services/modal/modal.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -10,6 +16,7 @@ import { EmployeeFormComponent } from '../../components/employee-form/employee-f
     ReactiveFormsModule,
     NgFor,
     EmployeeFormComponent,
+    CommonModule,
     // MyCustomPipe,
     // CustomAttributeDirective,
   ],
@@ -17,47 +24,34 @@ import { EmployeeFormComponent } from '../../components/employee-form/employee-f
   styleUrl: './employee-list.component.css',
 })
 export class EmployeeListComponent implements OnInit {
-  editMode = false;
-  employees: any = [];
+  constructor(
+    private employeeService: EmployeeService,
+    private modalService: ModalService
+  ) {}
 
-  selectedEmployee: any = null;
-
-  constructor(private dataService: DataService) {}
-
-  fetchEmployees() {
-    this.dataService.getData().subscribe({
-      next: (employees) => {
-        this.employees = employees;
-      },
-      error: (err) => {
-        console.error('Failed to fetch employees:', err);
-      },
-    });
-  }
+  employees$!: Observable<Employee[]>;
+  isModalOpen$!: Observable<boolean>;
 
   ngOnInit(): void {
-    this.fetchEmployees();
+    this.employees$ = this.employeeService.employees$;
+
+    //  this.modalService.modalState$.subscribe((state) => {
+    // });
+    this.isModalOpen$ = this.modalService.modalState$;
+
+    // isModalOpen$: Observable<boolean> = this.modalService.modalState$;
   }
 
-  onEmployeeSubmit(data: any) {
-    if (data) {
-      this.fetchEmployees();
-    }
+  openModal() {
+    this.modalService.openModal();
   }
 
   onEditEmployee(employee: any) {
-    this.editMode = true;
-    this.selectedEmployee = employee;
+    this.employeeService.setEditEmployee(employee);
+    this.openModal();
   }
 
   onDeleteEmployee(id: string) {
-    this.dataService.deleteEmployee(id).subscribe({
-      next: (response) => {
-        this.fetchEmployees();
-      },
-      error: (err) => {
-        console.error(err.message);
-      },
-    });
+    this.employeeService.deleteEmployee(id);
   }
 }

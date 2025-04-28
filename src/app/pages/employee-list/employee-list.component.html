@@ -1,12 +1,10 @@
-<app-employee-form
-  (submit)="onEmployeeSubmit($event)"
-  [editEmployee]="selectedEmployee"
-  [editMode]="editMode"
-  [employees]="employees"
-/>
+<app-employee-form />
 
 <div class="table-container">
-  <h1>Employees</h1>
+  <div class="btn-flex">
+    <h1>Employees</h1>
+    <button (click)="openModal()">Add Employee</button>
+  </div>
   <!-- <h1 appCustomAttribute>{{ "Employees" | myCustom : "Header:" }}</h1> -->
   <table>
     <thead>
@@ -21,7 +19,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let employee of employees">
+      <tr *ngFor="let employee of employees$ | async">
         <td>{{ employee.name }}</td>
         <td>{{ employee.email }}</td>
         <td>{{ employee.position }}</td>
@@ -34,7 +32,9 @@
         </td>
         <td>
           <button (click)="onEditEmployee(employee)">Edit</button>
-          <button (click)="onDeleteEmployee(employee.id)">Delete</button>
+          <button (click)="onDeleteEmployee(employee.id)" class="delete-btn">
+            Delete
+          </button>
         </td>
       </tr>
     </tbody>

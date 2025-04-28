@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -15,80 +15,91 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { DataService } from '../../services/data/data.service';
 import { CustomValidators } from '../../validators/custom-validators';
 import { MyCustomPipe } from '../../pipes/my-custom.pipe';
+import {
+  Employee,
+  EmployeeService,
+} from '../../services/employee/employee.service';
+import { Observable } from 'rxjs';
+import { ModalService } from '../../services/modal/modal.service';
 
 @Component({
   selector: 'app-employee-form',
-  imports: [NgIf, NgFor, ReactiveFormsModule, MyCustomPipe],
+  imports: [NgIf, NgFor, ReactiveFormsModule, MyCustomPipe, CommonModule],
   templateUrl: './employee-form.component.html',
   styleUrl: './employee-form.component.css',
 })
 export class EmployeeFormComponent implements OnInit {
   employeeForm: FormGroup;
 
-  @Input() editEmployee: any = null;
-  @Input() editMode: boolean = false;
-  @Input() employees: any = [];
-  @Input() modalOpen: boolean = false;
-  @Output() submit = new EventEmitter<any>();
+  editEmployee$!: Observable<Employee | null>; // Observable for edit employee
+  employees$!: Observable<Employee[]>;
+  isModalOpen$!: Observable<boolean>;
 
   createEmployeeForm(): FormGroup {
     return this.fb.group({
       name: [
-        this.editEmployee?.name || '',
+        ,
         [
           Validators.required,
           Validators.maxLength(20),
-          CustomValidators.uniqueName(
-            this.employees?.map((e: any) => e.name),
-            this.editMode
-          ),
+          // CustomValidators.uniqueName(this.employees$),
+          // ...(this.employeeService.editEmployeeSubject.getValue()
+          //   ? []
+          //   : [CustomValidators.uniqueName(this.employees$)]),
+          // ...(this.employeeService.editEmployee
+          //   ? []
+          //   : [
+          //       CustomValidators.uniqueName(
+          //         this.employees?.map((e: any) => e.name)
+          //       ),
+          //     ]),
         ],
       ],
 
-      email: [
-        this.editEmployee?.email || '',
-        [Validators.required, Validators.email],
-      ],
+      email: ['', [Validators.required, Validators.email]],
 
-      position: [
-        this.editEmployee?.position || '',
-        [Validators.required, Validators.maxLength(15)],
-      ],
+      position: ['', [Validators.required, Validators.maxLength(15)]],
 
-      department: [
-        this.editEmployee?.department || '',
-        [Validators.required, Validators.maxLength(10)],
-      ],
+      department: ['', [Validators.required, Validators.maxLength(10)]],
 
       address: this.fb.group({
-        street: [this.editEmployee?.address?.street || '', Validators.required],
-        city: [this.editEmployee?.address?.city || '', Validators.required],
-        postalCode: [
-          this.editEmployee?.address?.postalCode || '',
-          Validators.required,
-        ],
+        street: ['', Validators.required],
+        city: ['', Validators.required],
+        postalCode: ['', Validators.required],
       }),
 
       skills: this.fb.array(
-        (this.editEmployee?.skills || []).map((skill: any) =>
-          this.fb.control(skill)
-        ),
+        [].map((skill: any) => this.fb.control(skill)),
         CustomValidators.minLengthArray(1)
       ),
     });
   }
 
-  constructor(private fb: FormBuilder, private dataService: DataService) {
+  constructor(
+    private fb: FormBuilder,
+    private employeeService: EmployeeService,
+    private modalService: ModalService
+  ) {
     this.employeeForm = this.createEmployeeForm();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // this.employees$ = this.employeeService.employees$;
+    this.editEmployee$ = this.employeeService.editEmployee$;
+    this.isModalOpen$ = this.modalService.modalState$;
 
-  closeModal() {
-    this.modalOpen = !this.modalOpen;
+    // this.employeeForm = this.createEmployeeForm();
+
+    this.editEmployee$.subscribe((emp) => {
+      if (emp) {
+        this.employeeForm.patchValue(emp);
+
+        const skills = this.employeeForm.get('skills') as FormArray;
+        emp.skills.forEach((skill) => skills.push(this.fb.control(skill)));
+      }
+    });
   }
 
   get address(): FormGroup {
@@ -112,12 +123,8 @@ export class EmployeeFormComponent implements OnInit {
     this.skills.removeAt(index);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.employeeForm = this.createEmployeeForm();
-
-    if (changes['editEmployee'] && this.editEmployee) {
-      this.employeeForm.patchValue(this.editEmployee);
-    }
+  closeModal() {
+    this.modalService.closeModal();
   }
 
   onReset() {
@@ -127,27 +134,24 @@ export class EmployeeFormComponent implements OnInit {
 
   onSubmit() {
     if (this.employeeForm.valid) {
-      if (this.editEmployee) {
-        this.dataService
-          .updateEmployee(this.editEmployee.id, this.employeeForm.value)
-          .subscribe((response) => {
-            this.submit.emit(response);
-            this.editEmployee = null;
-            this.editMode = false;
-          });
+      const currentEmployee =
+        this.employeeService.editEmployeeSubject.getValue();
+
+      if (currentEmployee) {
+        this.employeeService.updateEmployee(
+          currentEmployee.id,
+          this.employeeForm.value
+        );
       } else {
-        this.dataService
-          .addEmployee({
-            ...this.employeeForm.value,
-            created: new Date().toISOString().split('T')[0],
-          })
-          .subscribe((response) => {
-            this.submit.emit(response);
-          });
+        this.employeeService.addEmployee({
+          ...this.employeeForm.value,
+          created: new Date().toISOString().split('T')[0],
+        });
       }
 
-      this.closeModal();
+      this.modalService.closeModal();
       this.onReset();
+      this.employeeService.setEditEmployee(null);
     }
   }
 }

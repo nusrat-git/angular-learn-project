@@ -15,15 +15,15 @@ interface Task {
 })
 export class TaskServiceService {
   constructor(private http: HttpClient) {
-    this.fetchTasks(); // Fetch tasks when the service is initialized
+    this.fetchTasks();
   }
 
   private apiUrl = 'http://localhost:3000/tasks';
 
   // private _isAuthenticated = new BehaviorSubject<boolean>(false);
 
-  private _tasksSubject = new BehaviorSubject<Task[]>([]); // BehaviorSubject to track tasks
-  tasks$ = this._tasksSubject.asObservable();
+  private tasksSubject = new BehaviorSubject<Task[]>([]);
+  tasks$ = this.tasksSubject.asObservable();
 
   fetchTasks(): void {
     this.http
@@ -34,7 +34,7 @@ export class TaskServiceService {
           return throwError(() => new Error('Error fetching tasks'));
         })
       )
-      .subscribe((tasks: any) => this._tasksSubject.next(tasks));
+      .subscribe((tasks: any) => this.tasksSubject.next(tasks));
   }
 
   addTask(title: string): void {
@@ -52,8 +52,8 @@ export class TaskServiceService {
       });
   }
 
-  deleteTask(taskId: number): void {
-    this.http.delete(`${this.apiUrl}/${taskId}`).subscribe(() => {
+  deleteTask(id: number): void {
+    this.http.delete(`${this.apiUrl}/${id}`).subscribe(() => {
       this.fetchTasks();
     });
   }
@@ -65,7 +65,7 @@ export class TaskServiceService {
   //     this.http
   //       .get<Task[]>(`${this.apiUrl}?status=${status}`)
   //       .subscribe((tasks) => {
-  //         this._tasksSubject.next(tasks); // Update the task list
+  //         this.tasksSubject.next(tasks); // Update the task list
   //       });
   //   }
   // }

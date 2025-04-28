@@ -56,7 +56,7 @@ button {
   padding: 8px 16px;
   margin-top: 10px;
   margin-right: 8px;
-  background-color: #56a098;
+  background-color: #39877f;
   /* background-color: #79cfc7; */
 
   color: white;
@@ -71,7 +71,20 @@ button[disabled] {
 }
 
 button:hover:not([disabled]) {
-  background-color: #0056b3;
+  background-color: #166d69;
+}
+
+.delete-btn {
+  background-color: #e34b5a;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #bb424e !important;
+}
+
+.delete-btn:focus {
+  outline: none;
 }
 
 .table-container {

@@ -11,6 +11,7 @@
       <small *ngIf="employeeForm.get('name')?.errors?.['maxlength']">
         Name can't be more than 20 characters
       </small>
+      {{ employeeForm.get("name")?.hasError("nameNotUnique") }}
 
       <small *ngIf="employeeForm.get('name')?.errors?.['nameNotUnique']">
         Name should be unique
@@ -124,15 +125,14 @@
 </form> -->
 
 <!-- Modal -->
-<div class="modal-overlay" *ngIf="modalOpen">
+<div class="modal-overlay" *ngIf="isModalOpen$ | async">
   <div class="modal-content">
     <div class="modal-header">
       <span>Add Employee</span>
-      <button class="close-btn" (click)="closeModal()">×</button>
+      <span class="close-btn" (click)="closeModal()">×</span>
     </div>
     <div class="modal-body">
       <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
-        <!-- Name -->
         <div>
           <label>Name : </label>
           <input type="text" formControlName="name" placeholder="Your name" />
@@ -150,7 +150,6 @@
         </div>
         <br />
 
-        <!-- Email -->
         <div>
           <label>Email : </label>
           <input
@@ -169,7 +168,6 @@
         </div>
         <br />
 
-        <!-- Position -->
         <div>
           <label>Position : </label>
           <input
@@ -190,7 +188,6 @@
         </div>
         <br />
 
-        <!-- Department -->
         <div>
           <label>Department : </label>
           <input
@@ -212,7 +209,6 @@
         </div>
         <br />
 
-        <!-- Address -->
         <div formGroupName="address">
           <label>Address : </label>
           <br />
@@ -252,7 +248,6 @@
         </div>
         <br />
 
-        <!-- Skills -->
         <div>
           <label>Skills : </label>
           <input [formControl]="skillInput" placeholder="Enter skill" />
@@ -278,7 +273,6 @@
 
         <br />
 
-        <!-- Submit Button -->
         <button type="submit" [disabled]="employeeForm.invalid">Submit</button>
         <button type="button" (click)="onReset()">Reset</button>
       </form>

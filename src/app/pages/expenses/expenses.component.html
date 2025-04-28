@@ -1,0 +1,32 @@
+<app-expense-form
+  (submit)="onExpenseSubmit($event)"
+  [editExpense]="selectedExpense"
+/>
+
+<div class="table-container">
+  <h1>Employees</h1>
+  <!-- <h1 appCustomAttribute>{{ "Employees" | myCustom : "Header:" }}</h1> -->
+  <table>
+    <thead>
+      <tr>
+        <th>Amount</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Date</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let expense of expenses">
+        <td>{{ expense.amount }}</td>
+        <td>{{ expense.category }}</td>
+        <td>{{ expense.description }}</td>
+        <td>{{ expense.expenseDate }}</td>
+        <td>
+          <button (click)="onEditExpense(expense)">Edit</button>
+          <button (click)="onDeleteExpense(expense.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

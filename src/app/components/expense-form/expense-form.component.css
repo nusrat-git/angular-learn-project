@@ -34,6 +34,30 @@ small {
   color: red;
 }
 
+.course-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.course-container > button {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+select {
+  width: 200px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  outline: none;
+}
+
+select:focus {
+  border-color: #007bff;
+}
+
 button {
   padding: 8px 16px;
   margin-top: 10px;
@@ -52,34 +76,4 @@ button[disabled] {
 
 button:hover:not([disabled]) {
   background-color: #0056b3;
-}
-
-.table-container {
-  margin: 2rem;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 30px;
-}
-
-table,
-th,
-td {
-  border: 1px solid #ccc;
-}
-
-th,
-td {
-  padding: 12px;
-  text-align: left;
-}
-
-th {
-  background-color: #f0f0f0;
-}
-
-td p {
-  margin: 0;
 }

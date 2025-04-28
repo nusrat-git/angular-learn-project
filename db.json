@@ -18,7 +18,7 @@
     },
     {
       "id": "1",
-      "name": "fsdfasd",
+      "name": "fedited",
       "email": "hehe@agsd",
       "position": "fsdfsd",
       "department": "fasfsdf",
@@ -30,21 +30,22 @@
       "skills": [
         "fasdgdg new"
       ]
+    }
+  ],
+  "expenses": [
+    {
+      "amount": 2297,
+      "category": "test",
+      "description": "tes",
+      "expenseDate": "2025-04-28",
+      "id": "654a"
     },
     {
-      "id": "1",
-      "name": "nusrat",
-      "email": "nus@sdklgjd",
-      "position": "gsdfgdfg",
-      "department": "dfgdfgdf",
-      "address": {
-        "street": "gdfgdf",
-        "city": "dfgdfgdf",
-        "postalCode": "34235"
-      },
-      "skills": [
-        "gdfg"
-      ]
+      "id": "d8ab",
+      "amount": 100,
+      "category": "test2",
+      "description": "test2",
+      "expenseDate": "2025-04-25"
     }
   ]
 }

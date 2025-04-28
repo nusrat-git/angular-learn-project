@@ -54,10 +54,6 @@ button:hover:not([disabled]) {
   background-color: #0056b3;
 }
 
-.table-container {
-  margin: 2rem;
-}
-
 table {
   width: 100%;
   border-collapse: collapse;

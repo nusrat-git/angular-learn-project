@@ -3,11 +3,11 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 export class CustomValidators {
   static uniqueName(
     existingNames: string[],
-    editMode: boolean | null = null
+    editMode: boolean = false
   ): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      console.log(editMode);
       if (editMode) return null;
+
       const currentName = control.value?.trim().toLowerCase();
       const isDuplicate = existingNames?.find(
         (name) => name?.trim().toLowerCase() === currentName

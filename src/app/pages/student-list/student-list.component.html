@@ -1,0 +1,94 @@
+<h1>Add Student</h1>
+<form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Name : </label>
+    <input type="text" formControlName="name" placeholder="Your name" />
+    <div *ngIf="studentForm.get('name')?.touched">
+      <small *ngIf="studentForm.get('name')?.errors?.['required']">
+        Name is required
+      </small>
+    </div>
+  </div>
+  <br />
+  <div>
+    <label>Email : </label>
+    <input type="email" formControlName="email" placeholder="Your email" />
+    <div
+      *ngIf="
+        studentForm.get('email')?.invalid && studentForm.get('email')?.touched
+      "
+    >
+      <small>Valid email is required</small>
+    </div>
+  </div>
+  <br />
+
+  <div>
+    <div>
+      <label>Courses : </label>
+      <div class="course-container">
+        <select [formControl]="courseInput">
+          <option value="" disabled selected>Select a course</option>
+          <option *ngFor="let course of courseList" [value]="course">
+            {{ course }}
+          </option>
+        </select>
+        <button
+          type="button"
+          (click)="addCourse()"
+          [disabled]="courseInput.invalid || !courseInput.value"
+        >
+          Add course
+        </button>
+      </div>
+    </div>
+
+    <div formArrayName="courses">
+      <div *ngFor="let course of courses.controls; let i = index">
+        <span>{{ course.value }} </span>
+        <button type="button" (click)="removeCourse(i)">Remove</button>
+      </div>
+    </div>
+
+    <div *ngIf="courseInput.touched && courses.errors?.['minLengthArray']">
+      <small>You must add at least one course</small>
+    </div>
+  </div>
+
+  <br />
+
+  <div formGroupName="payment">
+    <label>Payment Details : </label>
+    <br />
+    <br />
+    <label>Card Number : </label>
+    <input type="text" formControlName="cardNumber" placeholder="input" />
+    <div>
+      <small
+        *ngIf="
+          payment.get('cardNumber')?.hasError('required') &&
+          payment.get('cardNumber')?.touched
+        "
+        >Card number is required</small
+      >
+      <small
+        *ngIf="payment.get('cardNumber')?.touched && (payment.get('cardNumber')?.errors?.['minlength'] || payment.get('cardNumber')?.errors?.['maxlength'])"
+      >
+        Card number must be 16 digits
+      </small>
+    </div>
+
+    <label>Expiry Date : </label>
+    <input type="date" formControlName="expiryDate" placeholder="input" />
+    <div
+      *ngIf="
+        payment.get('expiryDate')?.invalid && payment.get('expiryDate')?.touched
+      "
+    >
+      <small>Expiry date is required</small>
+    </div>
+  </div>
+  <br />
+
+  <button type="submit" [disabled]="studentForm.invalid">Submit</button>
+</form>

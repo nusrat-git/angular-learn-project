@@ -8,28 +8,17 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { CustomValidators } from '../../validators/custom-validators';
-import { EmployeeCardComponent } from '../../components/employee-card/employee-card.component';
 import { DataService } from '../../services/data/data.service';
+import { CustomValidators } from '../../validators/custom-validators';
 import { MyCustomPipe } from '../../pipes/my-custom.pipe';
-import { CustomAttributeDirective } from '../../directives/custom-attribute.directive';
-import { EmployeeFormComponent } from '../../components/employee-form/employee-form.component';
 
 @Component({
-  selector: 'app-employee-list',
-  imports: [
-    ReactiveFormsModule,
-    NgIf,
-    NgFor,
-    // EmployeeCardComponent,
-    EmployeeFormComponent,
-    MyCustomPipe,
-    CustomAttributeDirective,
-  ],
-  templateUrl: './employee-list.component.html',
-  styleUrl: './employee-list.component.css',
+  selector: 'app-employee-form',
+  imports: [NgIf, NgFor, ReactiveFormsModule, MyCustomPipe],
+  templateUrl: './employee-form.component.html',
+  styleUrl: './employee-form.component.css',
 })
-export class EmployeeListComponent implements OnInit {
+export class EmployeeFormComponent implements OnInit {
   employeeForm: FormGroup;
   private id = 1;
   editEmployeeId: string | null = null;

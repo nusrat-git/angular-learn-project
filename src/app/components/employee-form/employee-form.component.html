@@ -1,4 +1,4 @@
-<h1>Add Employee</h1>
+<!-- <h1>Add Employee</h1>
 <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
   <div>
     <label>Name : </label>
@@ -122,14 +122,14 @@
   <button type="submit" [disabled]="employeeForm.invalid">Submit</button>
 
   <button type="button" (click)="onReset()">Reset</button>
-</form>
+</form> -->
 
 <!-- Modal -->
-<!-- <div class="modal-overlay" *ngIf="modalOpen">
+<div class="modal-overlay" *ngIf="isModalOpen$ | async">
   <div class="modal-content">
     <div class="modal-header">
       <span>Add Employee</span>
-      <button class="close-btn" (click)="closeModal()">×</button>
+      <span class="close-btn" (click)="closeModal()">×</span>
     </div>
     <div class="modal-body">
       <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
@@ -281,4 +281,4 @@
       <button (click)="closeModal()">Close</button>
     </div>
   </div>
-</div> -->
+</div>

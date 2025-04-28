@@ -8,6 +8,7 @@ import {
   EmployeeService,
 } from '../../services/employee/employee.service';
 import { Observable } from 'rxjs';
+import { ModalService } from '../../services/modal/modal.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -23,16 +24,31 @@ import { Observable } from 'rxjs';
   styleUrl: './employee-list.component.css',
 })
 export class EmployeeListComponent implements OnInit {
-  constructor(private employeeService: EmployeeService) {}
+  constructor(
+    private employeeService: EmployeeService,
+    private modalService: ModalService
+  ) {}
 
   employees$!: Observable<Employee[]>;
+  isModalOpen$!: Observable<boolean>;
 
   ngOnInit(): void {
     this.employees$ = this.employeeService.employees$;
+
+    //  this.modalService.modalState$.subscribe((state) => {
+    // });
+    this.isModalOpen$ = this.modalService.modalState$;
+
+    // isModalOpen$: Observable<boolean> = this.modalService.modalState$;
+  }
+
+  openModal() {
+    this.modalService.openModal();
   }
 
   onEditEmployee(employee: any) {
     this.employeeService.setEditEmployee(employee);
+    this.openModal();
   }
 
   onDeleteEmployee(id: string) {

@@ -17,43 +17,5 @@
     </div>
   </div>
 
-  <app-employee-form />
-
-  <div class="recent-employees">
-    <div class="btn-flex">
-      <h3>Recently Added Employees</h3>
-      <button>Add Employee</button>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Position</th>
-          <th>Department</th>
-          <th>Skills</th>
-          <th>Address</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let employee of employees$ | async">
-          <td>{{ employee.name }}</td>
-          <td>{{ employee.email }}</td>
-          <td>{{ employee.position }}</td>
-          <td>{{ employee.department }}</td>
-          <td>{{ employee.skills.join(", ") }}</td>
-          <td>
-            <p>Street: {{ employee.address.street }}</p>
-            <p>City: {{ employee.address.city }}</p>
-            <p>Postal Code: {{ employee.address.postalCode }}</p>
-          </td>
-          <td>
-            <button (click)="onEditEmployee(employee)">Edit</button>
-            <button (click)="onDeleteEmployee(employee.id)">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <app-employee-list />
 </div>

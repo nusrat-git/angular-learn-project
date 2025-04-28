@@ -12,7 +12,9 @@
       },
       "skills": [
         "ofofoffo",
-        "edited"
+        "edited",
+        "modal",
+        "newone"
       ],
       "id": "0"
     },
@@ -52,7 +54,7 @@
     },
     {
       "id": "4dd9",
-      "name": "ufffffff",
+      "name": "ufffffff done",
       "email": "uff@ffff",
       "position": "ufff",
       "department": "ufff",
@@ -62,7 +64,122 @@
         "postalCode": "4555"
       },
       "skills": [
-        "uffff"
+        "uffff",
+        "lala"
+      ],
+      "created": "2025-04-28"
+    },
+    {
+      "id": "e738",
+      "name": "modal",
+      "email": "modal@dsaff",
+      "position": "fsdfadf",
+      "department": "fsdfsdf",
+      "address": {
+        "street": "fsdfsdf",
+        "city": "fsdfsdf",
+        "postalCode": "34235"
+      },
+      "skills": [
+        "fsdfsd"
+      ],
+      "created": "2025-04-28"
+    },
+    {
+      "id": "ddae",
+      "name": "modal2",
+      "email": "modal@dsaff",
+      "position": "fsdfadf",
+      "department": "fsdfsdf",
+      "address": {
+        "street": "fsdfsdf",
+        "city": "fsdfsdf",
+        "postalCode": "34235"
+      },
+      "skills": [
+        "fsdfsd"
+      ],
+      "created": "2025-04-28"
+    },
+    {
+      "id": "59b2",
+      "name": "hehe",
+      "email": "hehe@fsf",
+      "position": "fsdfsd",
+      "department": "fsdfds",
+      "address": {
+        "street": "fsadfdfdsf",
+        "city": "fsdfsdf",
+        "postalCode": "34234"
+      },
+      "skills": [
+        "fsdfsdf"
+      ],
+      "created": "2025-04-28"
+    },
+    {
+      "id": "d88a",
+      "name": "hehe21",
+      "email": "hheh1@fjdf",
+      "position": "hehehe",
+      "department": "hhehe",
+      "address": {
+        "street": "hehehe",
+        "city": "hehehe",
+        "postalCode": "772i29292"
+      },
+      "skills": [
+        "hehehehe"
+      ],
+      "created": "2025-04-28"
+    },
+    {
+      "id": "7f99",
+      "name": "hehe2",
+      "email": "hheh1@fjdf",
+      "position": "hehehe",
+      "department": "hhehe",
+      "address": {
+        "street": "hehehe",
+        "city": "hehehe",
+        "postalCode": "772i29292"
+      },
+      "skills": [
+        "hehehehe"
+      ],
+      "created": "2025-04-28"
+    },
+    {
+      "id": "203e",
+      "name": "hehe3",
+      "email": "hheh1@fjdf",
+      "position": "hehehe",
+      "department": "hhehe",
+      "address": {
+        "street": "hehehe",
+        "city": "hehehe",
+        "postalCode": "772i29292"
+      },
+      "skills": [
+        "hehehehe"
+      ],
+      "created": "2025-04-28"
+    },
+    {
+      "id": "ebb1",
+      "name": "omy",
+      "email": "omy@fdf",
+      "position": "lalal",
+      "department": "lalal",
+      "address": {
+        "street": "kfksdf",
+        "city": "sdfsdkf",
+        "postalCode": "342"
+      },
+      "skills": [
+        "dfsdf",
+        "mym",
+        "edi"
       ],
       "created": "2025-04-28"
     }
@@ -124,11 +241,6 @@
     {
       "id": "1",
       "title": "Learn Angular",
-      "status": "pending"
-    },
-    {
-      "id": "2",
-      "title": "Build an App",
       "status": "pending"
     },
     {

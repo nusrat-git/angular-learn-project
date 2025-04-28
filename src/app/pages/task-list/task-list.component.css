@@ -33,19 +33,6 @@ button {
   margin-top: -1px;
 }
 
-.delete-btn {
-  background-color: #db7f88;
-  color: white;
-}
-
-.delete-btn:hover {
-  background-color: #c82333;
-}
-
-.delete-btn:focus {
-  outline: none;
-}
-
 /* Styling for the checkbox */
 .completion-checkbox {
   width: 20px;

@@ -2,11 +2,6 @@
   padding: 20px;
 }
 
-.btn-flex {
-  display: flex;
-  justify-content: space-between;
-}
-
 .summary-cards {
   display: flex;
   gap: 20px;

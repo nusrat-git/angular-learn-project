@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -22,10 +22,11 @@ import {
   EmployeeService,
 } from '../../services/employee/employee.service';
 import { Observable } from 'rxjs';
+import { ModalService } from '../../services/modal/modal.service';
 
 @Component({
   selector: 'app-employee-form',
-  imports: [NgIf, NgFor, ReactiveFormsModule, MyCustomPipe],
+  imports: [NgIf, NgFor, ReactiveFormsModule, MyCustomPipe, CommonModule],
   templateUrl: './employee-form.component.html',
   styleUrl: './employee-form.component.css',
 })
@@ -34,6 +35,7 @@ export class EmployeeFormComponent implements OnInit {
 
   editEmployee$!: Observable<Employee | null>; // Observable for edit employee
   employees$!: Observable<Employee[]>;
+  isModalOpen$!: Observable<boolean>;
 
   createEmployeeForm(): FormGroup {
     return this.fb.group({
@@ -77,7 +79,8 @@ export class EmployeeFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private modalService: ModalService
   ) {
     this.employeeForm = this.createEmployeeForm();
   }
@@ -85,6 +88,7 @@ export class EmployeeFormComponent implements OnInit {
   ngOnInit(): void {
     // this.employees$ = this.employeeService.employees$;
     this.editEmployee$ = this.employeeService.editEmployee$;
+    this.isModalOpen$ = this.modalService.modalState$;
 
     // this.employeeForm = this.createEmployeeForm();
 
@@ -119,6 +123,10 @@ export class EmployeeFormComponent implements OnInit {
     this.skills.removeAt(index);
   }
 
+  closeModal() {
+    this.modalService.closeModal();
+  }
+
   onReset() {
     this.employeeForm.reset();
     this.skills.clear();
@@ -126,18 +134,24 @@ export class EmployeeFormComponent implements OnInit {
 
   onSubmit() {
     if (this.employeeForm.valid) {
-      this.editEmployee$.subscribe((emp) => {
-        if (emp) {
-          this.employeeService.updateEmployee(emp.id, this.employeeForm.value);
-        } else {
-          this.employeeService.addEmployee({
-            ...this.employeeForm.value,
-            created: new Date().toISOString().split('T')[0],
-          });
-        }
-      });
+      const currentEmployee =
+        this.employeeService.editEmployeeSubject.getValue();
 
+      if (currentEmployee) {
+        this.employeeService.updateEmployee(
+          currentEmployee.id,
+          this.employeeForm.value
+        );
+      } else {
+        this.employeeService.addEmployee({
+          ...this.employeeForm.value,
+          created: new Date().toISOString().split('T')[0],
+        });
+      }
+
+      this.modalService.closeModal();
       this.onReset();
+      this.employeeService.setEditEmployee(null);
     }
   }
 }

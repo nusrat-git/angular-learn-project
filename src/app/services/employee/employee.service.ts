@@ -79,6 +79,7 @@ export class EmployeeService {
           emp.id === id ? { ...emp, ...updatedEmployee } : emp
         );
         this.employeesSubject.next(updatedEmployees);
+        this.setEditEmployee(null);
       });
   }
 

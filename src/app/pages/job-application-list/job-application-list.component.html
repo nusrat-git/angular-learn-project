@@ -24,7 +24,12 @@
         <td>{{ application.resume }}</td>
         <td>
           <button (click)="onEditApplication(application)">Edit</button>
-          <button (click)="onDeleteApplication(application.id)">Delete</button>
+          <button
+            (click)="onDeleteApplication(application.id)"
+            class="delete-btn"
+          >
+            Delete
+          </button>
         </td>
       </tr>
     </tbody>

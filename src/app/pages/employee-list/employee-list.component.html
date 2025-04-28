@@ -1,9 +1,4 @@
-<app-employee-form
-  (submit)="onEmployeeSubmit($event)"
-  [editEmployee]="selectedEmployee"
-  [editMode]="editMode"
-  [employees]="employees"
-/>
+<app-employee-form />
 
 <div class="table-container">
   <h1>Employees</h1>
@@ -21,7 +16,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let employee of employees">
+      <tr *ngFor="let employee of employees$ | async">
         <td>{{ employee.name }}</td>
         <td>{{ employee.email }}</td>
         <td>{{ employee.position }}</td>

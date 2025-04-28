@@ -1,13 +1,15 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import {
+  AbstractControl,
+  AsyncValidatorFn,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
+import { Employee } from '../services/employee/employee.service';
+import { Observable, catchError, debounceTime, of, switchMap } from 'rxjs';
 
 export class CustomValidators {
-  static uniqueName(
-    existingNames: string[],
-    editMode: boolean = false
-  ): ValidatorFn {
+  static uniqueName(existingNames: string[]): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      if (editMode) return null;
-
       const currentName = control.value?.trim().toLowerCase();
       const isDuplicate = existingNames?.find(
         (name) => name?.trim().toLowerCase() === currentName

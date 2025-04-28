@@ -5,7 +5,7 @@
   <div class="summary-cards">
     <div class="card">
       <h3>Total Employees</h3>
-      <p class="number">{{ employees.length }}</p>
+      <!-- <p class="number">{{ employees$.length | async }}</p> -->
     </div>
     <div class="card">
       <h3>Departments</h3>
@@ -17,18 +17,12 @@
     </div>
   </div>
 
-  <app-employee-form
-    (submit)="onEmployeeSubmit($event)"
-    [editEmployee]="selectedEmployee"
-    [editMode]="editMode"
-    [employees]="employees"
-    [modalOpen]="modalOpen"
-  />
+  <app-employee-form />
 
   <div class="recent-employees">
     <div class="btn-flex">
       <h3>Recently Added Employees</h3>
-      <button (click)="openModal()">Add Employee</button>
+      <button>Add Employee</button>
     </div>
     <table>
       <thead>
@@ -43,7 +37,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let employee of employees">
+        <tr *ngFor="let employee of employees$ | async">
           <td>{{ employee.name }}</td>
           <td>{{ employee.email }}</td>
           <td>{{ employee.position }}</td>

@@ -31,5 +31,21 @@
         "fasdgdg new"
       ]
     }
+  ],
+  "expenses": [
+    {
+      "amount": 2297,
+      "category": "test",
+      "description": "tes",
+      "expenseDate": "2025-04-28",
+      "id": "654a"
+    },
+    {
+      "id": "d8ab",
+      "amount": 100,
+      "category": "test2",
+      "description": "test2",
+      "expenseDate": "2025-04-25"
+    }
   ]
 }

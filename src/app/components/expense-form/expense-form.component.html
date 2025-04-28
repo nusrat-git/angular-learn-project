@@ -1,0 +1,57 @@
+<h1>Add Expense</h1>
+<form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Amount : </label>
+    <input type="number" formControlName="amount" placeholder="Your amount" />
+    <div *ngIf="expenseForm.get('amount')?.touched">
+      <small *ngIf="expenseForm.get('amount')?.errors?.['required']">
+        Amount is required
+      </small>
+    </div>
+  </div>
+  <br />
+
+  <div>
+    <label>Category : </label>
+    <input type="text" formControlName="category" placeholder="Your text" />
+    <div
+      *ngIf="
+        expenseForm.get('category')?.invalid &&
+        expenseForm.get('category')?.touched
+      "
+    >
+      <small>Category is required</small>
+    </div>
+  </div>
+  <br />
+
+  <div>
+    <label>Description : </label>
+    <input type="text" formControlName="description" placeholder="Your text" />
+    <div
+      *ngIf="
+        expenseForm.get('description')?.invalid &&
+        expenseForm.get('description')?.touched
+      "
+    >
+      <small>Description is required</small>
+    </div>
+  </div>
+  <br />
+
+  <div>
+    <label>Expense Date : </label>
+    <input type="date" formControlName="expenseDate" placeholder="input" />
+    <div
+      *ngIf="
+        expenseForm.get('expenseDate')?.invalid &&
+        expenseForm.get('expenseDate')?.touched
+      "
+    >
+      <small>Expiry date is required</small>
+    </div>
+  </div>
+  <br />
+
+  <button type="submit" [disabled]="expenseForm.invalid">Submit</button>
+</form>

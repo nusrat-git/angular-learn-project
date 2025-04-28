@@ -31,12 +31,13 @@ export class EmployeeFormComponent implements OnInit {
   @Input() editEmployee: any = null;
   @Input() editMode: boolean = false;
   @Input() employees: any = [];
+  @Input() modalOpen: boolean = false;
   @Output() submit = new EventEmitter<any>();
 
   createEmployeeForm(): FormGroup {
     return this.fb.group({
       name: [
-        '',
+        this.editEmployee?.name || '',
         [
           Validators.required,
           Validators.maxLength(20),
@@ -47,16 +48,28 @@ export class EmployeeFormComponent implements OnInit {
         ],
       ],
 
-      email: ['', [Validators.required, Validators.email]],
+      email: [
+        this.editEmployee?.email || '',
+        [Validators.required, Validators.email],
+      ],
 
-      position: ['', [Validators.required, Validators.maxLength(15)]],
+      position: [
+        this.editEmployee?.position || '',
+        [Validators.required, Validators.maxLength(15)],
+      ],
 
-      department: ['', [Validators.required, Validators.maxLength(10)]],
+      department: [
+        this.editEmployee?.department || '',
+        [Validators.required, Validators.maxLength(10)],
+      ],
 
       address: this.fb.group({
-        street: ['', Validators.required],
-        city: ['', Validators.required],
-        postalCode: ['', Validators.required],
+        street: [this.editEmployee?.address?.street || '', Validators.required],
+        city: [this.editEmployee?.address?.city || '', Validators.required],
+        postalCode: [
+          this.editEmployee?.address?.postalCode || '',
+          Validators.required,
+        ],
       }),
 
       skills: this.fb.array(
@@ -73,6 +86,10 @@ export class EmployeeFormComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  closeModal() {
+    this.modalOpen = !this.modalOpen;
+  }
 
   get address(): FormGroup {
     return this.employeeForm.get('address') as FormGroup;
@@ -120,12 +137,16 @@ export class EmployeeFormComponent implements OnInit {
           });
       } else {
         this.dataService
-          .addEmployee(this.employeeForm.value)
+          .addEmployee({
+            ...this.employeeForm.value,
+            created: new Date().toISOString().split('T')[0],
+          })
           .subscribe((response) => {
             this.submit.emit(response);
           });
       }
 
+      this.closeModal();
       this.onReset();
     }
   }

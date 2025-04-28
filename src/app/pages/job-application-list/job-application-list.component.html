@@ -1,0 +1,32 @@
+<app-job-application-form
+  (submit)="onApplicationSubmit($event)"
+  [editApplication]="selectedApplication"
+/>
+
+<div class="table-container">
+  <h1>Employees</h1>
+  <!-- <h1 appCustomAttribute>{{ "Employees" | myCustom : "Header:" }}</h1> -->
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Position</th>
+        <th>Resume</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let application of applications">
+        <td>{{ application.name }}</td>
+        <td>{{ application.email }}</td>
+        <td>{{ application.position }}</td>
+        <td>{{ application.resume }}</td>
+        <td>
+          <button (click)="onEditApplication(application)">Edit</button>
+          <button (click)="onDeleteApplication(application.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

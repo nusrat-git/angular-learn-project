@@ -9,6 +9,7 @@ export class DataService {
   private apiUrlEmployee = 'http://localhost:3000/employees';
   private apiUrlExpense = 'http://localhost:3000/expenses';
   private apiUrlEvent = 'http://localhost:3000/events';
+  private apiUrlApplication = 'http://localhost:3000/applications';
 
   constructor(private http: HttpClient) {}
 
@@ -169,6 +170,60 @@ export class DataService {
       catchError((error) => {
         console.error('Error deleting event:', error);
         return throwError(() => new Error('Failed to delete event.'));
+      })
+    );
+  }
+
+  // applications
+  getApplications(): Observable<any> {
+    return this.http.get(this.apiUrlApplication).pipe(
+      catchError((error) => {
+        console.error('Fetch error:', error);
+        return throwError(() => new Error('Failed to fetch applications'));
+      })
+    );
+  }
+
+  getApplication(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrlApplication}/${id}`).pipe(
+      catchError((error) => {
+        if (error.status === 404) {
+          return throwError(() => new Error('Application not found.'));
+        } else {
+          console.error('Fetch error:', error);
+          return throwError(() => new Error('Failed to fetch application.'));
+        }
+      })
+    );
+  }
+
+  addApplication(application: any): Observable<any> {
+    return this.http.post(this.apiUrlApplication, application).pipe(
+      catchError((error) => {
+        console.error('Error adding application:', error);
+        return throwError(() => new Error('Failed to add application.'));
+      })
+    );
+  }
+
+  updateApplication(id: string | null, application: any): Observable<any> {
+    if (id === null || id === undefined) {
+      return throwError(() => new Error('Invalid application ID.'));
+    }
+
+    return this.http.put(`${this.apiUrlApplication}/${id}`, application).pipe(
+      catchError((error) => {
+        console.error('Error updating application:', error);
+        return throwError(() => new Error('Failed to update application.'));
+      })
+    );
+  }
+
+  deleteApplication(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrlApplication}/${id}`).pipe(
+      catchError((error) => {
+        console.error('Error deleting application:', error);
+        return throwError(() => new Error('Failed to delete application.'));
       })
     );
   }

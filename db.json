@@ -68,5 +68,14 @@
       ],
       "id": "e3b6"
     }
+  ],
+  "applications": [
+    {
+      "name": "nusrat",
+      "email": "nusrat@email.com",
+      "position": "hehe",
+      "resume": "C:\\fakepath\\Screenshot 2025-03-17 152518.png",
+      "id": "8444"
+    }
   ]
 }

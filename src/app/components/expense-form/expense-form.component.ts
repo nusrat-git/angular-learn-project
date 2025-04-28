@@ -64,5 +64,6 @@ export class ExpenseFormComponent implements OnInit {
           });
       }
     }
+    this.expenseForm.reset();
   }
 }

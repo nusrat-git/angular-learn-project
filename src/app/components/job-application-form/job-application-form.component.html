@@ -1,0 +1,57 @@
+<h1>Add Application</h1>
+<form [formGroup]="applicationForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Name : </label>
+    <input type="text" formControlName="name" placeholder="Your name" />
+    <div *ngIf="applicationForm.get('name')?.touched">
+      <small *ngIf="applicationForm.get('name')?.errors?.['required']">
+        Name is required
+      </small>
+    </div>
+  </div>
+  <br />
+
+  <div>
+    <label>Email : </label>
+    <input type="email" formControlName="email" placeholder="Your text" />
+    <div
+      *ngIf="
+        applicationForm.get('email')?.invalid &&
+        applicationForm.get('email')?.touched
+      "
+    >
+      <small>Email is required</small>
+    </div>
+  </div>
+  <br />
+
+  <div>
+    <label>Position : </label>
+    <input type="text" formControlName="position" placeholder="Your text" />
+    <div
+      *ngIf="
+        applicationForm.get('position')?.invalid &&
+        applicationForm.get('position')?.touched
+      "
+    >
+      <small>Position is required</small>
+    </div>
+  </div>
+  <br />
+
+  <div>
+    <label>Resume : </label>
+    <input type="file" formControlName="resume" placeholder="Your resume" />
+    <div
+      *ngIf="
+        applicationForm.get('resume')?.invalid &&
+        applicationForm.get('resume')?.touched
+      "
+    >
+      <small>Resume is required</small>
+    </div>
+  </div>
+  <br />
+
+  <button type="submit" [disabled]="applicationForm.invalid">Submit</button>
+</form>

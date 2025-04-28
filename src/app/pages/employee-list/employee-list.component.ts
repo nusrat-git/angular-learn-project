@@ -1,28 +1,15 @@
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { CustomValidators } from '../../validators/custom-validators';
-import { EmployeeCardComponent } from '../../components/employee-card/employee-card.component';
+import { ReactiveFormsModule } from '@angular/forms';
 import { DataService } from '../../services/data/data.service';
-import { MyCustomPipe } from '../../pipes/my-custom.pipe';
-import { CustomAttributeDirective } from '../../directives/custom-attribute.directive';
 import { EmployeeFormComponent } from '../../components/employee-form/employee-form.component';
 
 @Component({
   selector: 'app-employee-list',
   imports: [
     ReactiveFormsModule,
-    NgIf,
     NgFor,
-    // EmployeeCardComponent,
-    // EmployeeFormComponent,
+    EmployeeFormComponent,
     // MyCustomPipe,
     // CustomAttributeDirective,
   ],
@@ -30,90 +17,12 @@ import { EmployeeFormComponent } from '../../components/employee-form/employee-f
   styleUrl: './employee-list.component.css',
 })
 export class EmployeeListComponent implements OnInit {
-  employeeForm: FormGroup;
-  private id = 1;
-  editEmployeeId: string | null = null;
   editMode = false;
   employees: any = [];
 
-  createEmployeeForm(employeeData: any = null): FormGroup {
-    return this.fb.group({
-      name: [
-        employeeData?.name || '',
-        [
-          Validators.required,
-          Validators.maxLength(20),
-          CustomValidators.uniqueName(
-            this.employees?.map((e: any) => e.name),
-            this.editMode
-          ),
-        ],
-      ],
+  selectedEmployee: any = null;
 
-      email: [
-        employeeData?.email || '',
-        [Validators.required, Validators.email],
-      ],
-
-      position: [
-        employeeData?.position || '',
-        [Validators.required, Validators.maxLength(15)],
-      ],
-
-      department: [
-        employeeData?.department || '',
-        [Validators.required, Validators.maxLength(10)],
-      ],
-
-      address: this.fb.group({
-        street: [employeeData?.address?.street || '', Validators.required],
-        city: [employeeData?.address?.city || '', Validators.required],
-        postalCode: [
-          employeeData?.address?.postalCode || '',
-          Validators.required,
-        ],
-      }),
-
-      skills: this.fb.array(
-        (employeeData?.skills || []).map((skill: any) =>
-          this.fb.control(skill)
-        ),
-        CustomValidators.minLengthArray(1)
-      ),
-    });
-  }
-
-  constructor(private fb: FormBuilder, private dataService: DataService) {
-    this.employeeForm = this.createEmployeeForm();
-  }
-
-  ngOnInit(): void {
-    this.dataService.getData().subscribe((response) => {
-      this.employees = response;
-      this.employeeForm = this.createEmployeeForm();
-    });
-  }
-
-  get address(): FormGroup {
-    return this.employeeForm.get('address') as FormGroup;
-  }
-
-  get skills(): FormArray {
-    return this.employeeForm.get('skills') as FormArray;
-  }
-
-  skillInput = new FormControl('', Validators.required);
-
-  addSkill() {
-    if (this.skillInput.valid) {
-      this.skills.push(new FormControl(this.skillInput.value));
-      this.skillInput.reset();
-    }
-  }
-
-  removeSkill(index: number) {
-    this.skills.removeAt(index);
-  }
+  constructor(private dataService: DataService) {}
 
   fetchEmployees() {
     this.dataService.getData().subscribe({
@@ -126,46 +35,19 @@ export class EmployeeListComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    if (this.employeeForm.valid) {
-      const updatedEmployee = {
-        id: this.editMode
-          ? this.editEmployeeId?.toString()
-          : (this.id++).toString(),
-        ...this.employeeForm.value,
-      };
+  ngOnInit(): void {
+    this.fetchEmployees();
+  }
 
-      if (this.editMode) {
-        this.dataService
-          .updateEmployee(this.editEmployeeId, updatedEmployee)
-          .subscribe((response) => {
-            this.fetchEmployees();
-          });
-      } else {
-        this.dataService.addEmployee(updatedEmployee).subscribe((response) => {
-          this.fetchEmployees();
-        });
-      }
-
-      this.onReset();
-      this.editMode = false;
-      this.editEmployeeId = null;
+  onEmployeeSubmit(data: any) {
+    if (data) {
+      this.fetchEmployees();
     }
   }
 
-  onEditEmployee(id: string) {
+  onEditEmployee(employee: any) {
     this.editMode = true;
-    this.editEmployeeId = id;
-
-    this.dataService.getEmployee(id).subscribe({
-      next: (employee) => {
-        this.employeeForm = this.createEmployeeForm(employee);
-        this.employeeForm.patchValue(employee);
-      },
-      error: (err) => {
-        console.error(err.message);
-      },
-    });
+    this.selectedEmployee = employee;
   }
 
   onDeleteEmployee(id: string) {
@@ -177,10 +59,5 @@ export class EmployeeListComponent implements OnInit {
         console.error(err.message);
       },
     });
-  }
-
-  onReset() {
-    this.employeeForm.reset();
-    this.skills.clear();
   }
 }

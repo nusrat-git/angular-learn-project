@@ -1,5 +1,12 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -20,15 +27,16 @@ import { MyCustomPipe } from '../../pipes/my-custom.pipe';
 })
 export class EmployeeFormComponent implements OnInit {
   employeeForm: FormGroup;
-  private id = 1;
-  editEmployeeId: string | null = null;
-  editMode = false;
-  employees: any = [];
 
-  createEmployeeForm(employeeData: any = null): FormGroup {
+  @Input() editEmployee: any = null;
+  @Input() editMode: boolean = false;
+  @Input() employees: any = [];
+  @Output() submit = new EventEmitter<any>();
+
+  createEmployeeForm(): FormGroup {
     return this.fb.group({
       name: [
-        employeeData?.name || '',
+        '',
         [
           Validators.required,
           Validators.maxLength(20),
@@ -39,32 +47,20 @@ export class EmployeeFormComponent implements OnInit {
         ],
       ],
 
-      email: [
-        employeeData?.email || '',
-        [Validators.required, Validators.email],
-      ],
+      email: ['', [Validators.required, Validators.email]],
 
-      position: [
-        employeeData?.position || '',
-        [Validators.required, Validators.maxLength(15)],
-      ],
+      position: ['', [Validators.required, Validators.maxLength(15)]],
 
-      department: [
-        employeeData?.department || '',
-        [Validators.required, Validators.maxLength(10)],
-      ],
+      department: ['', [Validators.required, Validators.maxLength(10)]],
 
       address: this.fb.group({
-        street: [employeeData?.address?.street || '', Validators.required],
-        city: [employeeData?.address?.city || '', Validators.required],
-        postalCode: [
-          employeeData?.address?.postalCode || '',
-          Validators.required,
-        ],
+        street: ['', Validators.required],
+        city: ['', Validators.required],
+        postalCode: ['', Validators.required],
       }),
 
       skills: this.fb.array(
-        (employeeData?.skills || []).map((skill: any) =>
+        (this.editEmployee?.skills || []).map((skill: any) =>
           this.fb.control(skill)
         ),
         CustomValidators.minLengthArray(1)
@@ -76,12 +72,7 @@ export class EmployeeFormComponent implements OnInit {
     this.employeeForm = this.createEmployeeForm();
   }
 
-  ngOnInit(): void {
-    this.dataService.getData().subscribe((response) => {
-      this.employees = response;
-      this.employeeForm = this.createEmployeeForm();
-    });
-  }
+  ngOnInit(): void {}
 
   get address(): FormGroup {
     return this.employeeForm.get('address') as FormGroup;
@@ -104,72 +95,38 @@ export class EmployeeFormComponent implements OnInit {
     this.skills.removeAt(index);
   }
 
-  fetchEmployees() {
-    this.dataService.getData().subscribe({
-      next: (employees) => {
-        this.employees = employees;
-      },
-      error: (err) => {
-        console.error('Failed to fetch employees:', err);
-      },
-    });
-  }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.employeeForm = this.createEmployeeForm();
 
-  onSubmit() {
-    if (this.employeeForm.valid) {
-      const updatedEmployee = {
-        id: this.editMode
-          ? this.editEmployeeId?.toString()
-          : (this.id++).toString(),
-        ...this.employeeForm.value,
-      };
-
-      if (this.editMode) {
-        this.dataService
-          .updateEmployee(this.editEmployeeId, updatedEmployee)
-          .subscribe((response) => {
-            this.fetchEmployees();
-          });
-      } else {
-        this.dataService.addEmployee(updatedEmployee).subscribe((response) => {
-          this.fetchEmployees();
-        });
-      }
-
-      this.onReset();
-      this.editMode = false;
-      this.editEmployeeId = null;
+    if (changes['editEmployee'] && this.editEmployee) {
+      this.employeeForm.patchValue(this.editEmployee);
     }
-  }
-
-  onEditEmployee(id: string) {
-    this.editMode = true;
-    this.editEmployeeId = id;
-
-    this.dataService.getEmployee(id).subscribe({
-      next: (employee) => {
-        this.employeeForm = this.createEmployeeForm(employee);
-        this.employeeForm.patchValue(employee);
-      },
-      error: (err) => {
-        console.error(err.message);
-      },
-    });
-  }
-
-  onDeleteEmployee(id: string) {
-    this.dataService.deleteEmployee(id).subscribe({
-      next: (response) => {
-        this.fetchEmployees();
-      },
-      error: (err) => {
-        console.error(err.message);
-      },
-    });
   }
 
   onReset() {
     this.employeeForm.reset();
     this.skills.clear();
+  }
+
+  onSubmit() {
+    if (this.employeeForm.valid) {
+      if (this.editEmployee) {
+        this.dataService
+          .updateEmployee(this.editEmployee.id, this.employeeForm.value)
+          .subscribe((response) => {
+            this.submit.emit(response);
+            this.editEmployee = null;
+            this.editMode = false;
+          });
+      } else {
+        this.dataService
+          .addEmployee(this.employeeForm.value)
+          .subscribe((response) => {
+            this.submit.emit(response);
+          });
+      }
+
+      this.onReset();
+    }
   }
 }

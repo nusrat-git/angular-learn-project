@@ -11,9 +11,6 @@ import { NgFor } from '@angular/common';
 })
 export class ExpensesComponent implements OnInit {
   expenses: any = [];
-  private id = 1;
-  editId: string | null = null;
-  editMode = false;
 
   selectedExpense: any = null;
 

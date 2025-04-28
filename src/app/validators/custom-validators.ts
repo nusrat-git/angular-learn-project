@@ -24,4 +24,23 @@ export class CustomValidators {
       return { minLengthArray: true };
     };
   }
+
+  static checkPdfFile() {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+
+      console.log(value);
+
+      if (!value) return null;
+
+      if (
+        typeof value === 'string' &&
+        value.startsWith('data:application/pdf')
+      ) {
+        return null;
+      }
+
+      return { invalidPdf: true };
+    };
+  }
 }

@@ -40,15 +40,27 @@
   <br />
 
   <div>
-    <label>Resume : </label>
-    <input type="file" formControlName="resume" placeholder="Your resume" />
-    <div
-      *ngIf="
-        applicationForm.get('resume')?.invalid &&
-        applicationForm.get('resume')?.touched
-      "
-    >
-      <small>Resume is required</small>
+    <label>Resume: </label>
+
+    <!-- File input for a new resume upload -->
+    <input
+      type="file"
+      formControlName="resume"
+      (change)="onFileChange($event)"
+      placeholder="Upload your resume"
+    />
+    <div>
+      <small *ngIf="editApplication?.resume">{{
+        editApplication?.resume
+      }}</small>
+      <small
+        *ngIf="
+          applicationForm.get('resume')?.invalid &&
+          applicationForm.get('resume')?.touched
+        "
+        >Resume is required</small
+      >
+      <small *ngIf="fileError">{{ fileError }} </small>
     </div>
   </div>
   <br />

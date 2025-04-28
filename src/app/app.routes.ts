@@ -11,11 +11,16 @@ import { ExpensesComponent } from './pages/expenses/expenses.component';
 import { EventPlannerListComponent } from './pages/event-planner-list/event-planner-list.component';
 import { JobApplicationListComponent } from './pages/job-application-list/job-application-list.component';
 import { TaskListComponent } from './pages/task-list/task-list.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
   },
   {
     path: 'blogs',

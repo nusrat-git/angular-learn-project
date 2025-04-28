@@ -1,21 +1,28 @@
 nav {
+  background-color: #f8f9fa;
+  padding: 12px 20px;
   display: flex;
-  gap: 2rem;
   justify-content: center;
-  align-items: center;
-  background: rgb(157, 215, 205);
-  padding: 0.8rem 0;
-  margin-bottom: 2rem;
+  gap: 20px;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  font-family: "Segoe UI", sans-serif;
 }
 
-nav > a {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 1.3rem;
-  font-weight: 600;
+nav a {
   text-decoration: none;
-  color: rgb(67, 79, 75);
+  color: #333;
+  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: 4px;
 }
 
-nav > a:hover {
-  color: rgb(46, 114, 93);
+nav a:hover {
+  background-color: #e2e6ea;
+  color: #000;
+}
+
+nav a.active {
+  background-color: #007bff;
+  color: white;
 }

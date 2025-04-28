@@ -10,6 +10,7 @@ import { StudentListComponent } from './pages/student-list/student-list.componen
 import { ExpensesComponent } from './pages/expenses/expenses.component';
 import { EventPlannerListComponent } from './pages/event-planner-list/event-planner-list.component';
 import { JobApplicationListComponent } from './pages/job-application-list/job-application-list.component';
+import { TaskListComponent } from './pages/task-list/task-list.component';
 
 export const routes: Routes = [
   {
@@ -43,6 +44,10 @@ export const routes: Routes = [
   {
     path: 'job-applications',
     component: JobApplicationListComponent,
+  },
+  {
+    path: 'task-management',
+    component: TaskListComponent,
   },
   {
     path: 'registration',

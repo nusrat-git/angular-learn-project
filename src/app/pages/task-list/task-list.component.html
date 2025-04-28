@@ -1,0 +1,21 @@
+<div class="task-container">
+  <h1>Add Task</h1>
+  <app-task-creator />
+
+  <div *ngFor="let task of tasks$ | async" class="task-item">
+    <input
+      type="checkbox"
+      [checked]="task.status === 'completed'"
+      (change)="toggleTaskCompletion(task.id, $event)"
+      class="completion-checkbox"
+      placeholder="n"
+    />
+    <span
+      [ngClass]="{ completed: task.status === 'completed' }"
+      class="task-title"
+    >
+      {{ task.title }}
+    </span>
+    <button (click)="deleteTask(task.id)" class="delete-btn">Delete</button>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+.creator-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+}
+
+.task-add-btn {
+  padding: 9px 10px;
+  margin-top: 0;
+  margin-right: 0;
+  width: 7rem;
+  margin-bottom: -3px;
+  background: #80ccc4;
+}
+
+.task-add-btn:hover {
+  background: #65b1aa;
+}

@@ -77,5 +77,27 @@
       "resume": "C:\\fakepath\\Screenshot 2025-03-17 152518.png",
       "id": "8444"
     }
+  ],
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Learn Angular",
+      "status": "pending"
+    },
+    {
+      "id": "2",
+      "title": "Build an App",
+      "status": "pending"
+    },
+    {
+      "id": "60d5",
+      "title": "dagagdf",
+      "status": "pending"
+    },
+    {
+      "id": "0efc",
+      "title": "fasga",
+      "status": "pending"
+    }
   ]
 }

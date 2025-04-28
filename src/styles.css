@@ -43,7 +43,9 @@ button {
   padding: 8px 16px;
   margin-top: 10px;
   margin-right: 8px;
-  background-color: #007bff;
+  background-color: #80ccc4;
+  /* background-color: #79cfc7; */
+
   color: white;
   border: none;
   border-radius: 4px;

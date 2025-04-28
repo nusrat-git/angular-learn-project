@@ -38,7 +38,8 @@ button {
   padding: 8px 16px;
   margin-top: 10px;
   margin-right: 8px;
-  background-color: #007bff;
+  background-color: rgb(157, 215, 205);
+
   color: white;
   border: none;
   border-radius: 4px;

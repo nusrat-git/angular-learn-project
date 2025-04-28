@@ -8,6 +8,7 @@ import { catchError, Observable, throwError } from 'rxjs';
 export class DataService {
   private apiUrlEmployee = 'http://localhost:3000/employees';
   private apiUrlExpense = 'http://localhost:3000/expenses';
+  private apiUrlEvent = 'http://localhost:3000/events';
 
   constructor(private http: HttpClient) {}
 
@@ -65,7 +66,6 @@ export class DataService {
   }
 
   // expense
-
   getExpenses(): Observable<any> {
     return this.http.get(this.apiUrlExpense).pipe(
       catchError((error) => {
@@ -115,6 +115,60 @@ export class DataService {
       catchError((error) => {
         console.error('Error deleting expense:', error);
         return throwError(() => new Error('Failed to delete expense.'));
+      })
+    );
+  }
+
+  // events
+  getEvents(): Observable<any> {
+    return this.http.get(this.apiUrlEvent).pipe(
+      catchError((error) => {
+        console.error('Fetch error:', error);
+        return throwError(() => new Error('Failed to fetch events'));
+      })
+    );
+  }
+
+  getEvent(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrlEvent}/${id}`).pipe(
+      catchError((error) => {
+        if (error.status === 404) {
+          return throwError(() => new Error('Event not found.'));
+        } else {
+          console.error('Fetch error:', error);
+          return throwError(() => new Error('Failed to fetch event.'));
+        }
+      })
+    );
+  }
+
+  addEvent(event: any): Observable<any> {
+    return this.http.post(this.apiUrlEvent, event).pipe(
+      catchError((error) => {
+        console.error('Error adding Event:', error);
+        return throwError(() => new Error('Failed to add Event.'));
+      })
+    );
+  }
+
+  updateEvent(id: string | null, event: any): Observable<any> {
+    if (id === null || id === undefined) {
+      return throwError(() => new Error('Invalid event ID.'));
+    }
+
+    return this.http.put(`${this.apiUrlEvent}/${id}`, event).pipe(
+      catchError((error) => {
+        console.error('Error updating event:', error);
+        return throwError(() => new Error('Failed to update event.'));
+      })
+    );
+  }
+
+  deleteEvent(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrlEvent}/${id}`).pipe(
+      catchError((error) => {
+        console.error('Error deleting event:', error);
+        return throwError(() => new Error('Failed to delete event.'));
       })
     );
   }

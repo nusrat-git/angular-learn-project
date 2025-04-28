@@ -27,7 +27,7 @@
     <div>
       <label>Courses : </label>
       <div class="course-container">
-        <select [formControl]="courseInput">
+        <select title="course" [formControl]="courseInput">
           <option value="" disabled selected>Select a course</option>
           <option *ngFor="let course of courseList" [value]="course">
             {{ course }}

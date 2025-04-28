@@ -47,5 +47,26 @@
       "description": "test2",
       "expenseDate": "2025-04-25"
     }
+  ],
+  "events": [
+    {
+      "id": "f3f9",
+      "title": "hehe",
+      "eventDate": "2025-04-26",
+      "location": "fsdfa",
+      "guests": [
+        "fsdfasdf",
+        "hehe"
+      ]
+    },
+    {
+      "title": "gagag",
+      "eventDate": "2025-04-28",
+      "location": "dfasd",
+      "guests": [
+        "new"
+      ],
+      "id": "e3b6"
+    }
   ]
 }

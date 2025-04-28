@@ -1,0 +1,69 @@
+<h1>Add Event</h1>
+<form [formGroup]="eventPlannerForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Title : </label>
+    <input type="text" formControlName="title" placeholder="Your title" />
+    <div *ngIf="eventPlannerForm.get('title')?.touched">
+      <small *ngIf="eventPlannerForm.get('title')?.errors?.['required']">
+        Title is required
+      </small>
+    </div>
+  </div>
+  <br />
+
+  <div>
+    <label>Event Date : </label>
+    <input type="date" formControlName="eventDate" placeholder="input" />
+    <div
+      *ngIf="
+        eventPlannerForm.get('eventDate')?.invalid &&
+        eventPlannerForm.get('eventDate')?.touched
+      "
+    >
+      <small>Expiry date is required</small>
+    </div>
+  </div>
+  <br />
+
+  <div>
+    <label>Location : </label>
+    <input type="text" formControlName="location" placeholder="Your text" />
+    <div
+      *ngIf="
+        eventPlannerForm.get('location')?.invalid &&
+        eventPlannerForm.get('location')?.touched
+      "
+    >
+      <small>Location is required</small>
+    </div>
+  </div>
+  <br />
+
+  <div>
+    <div>
+      <label>Guests : </label>
+      <input [formControl]="guestInput" placeholder="Enter guest" />
+      <button
+        type="button"
+        (click)="addguest()"
+        [disabled]="guestInput.invalid"
+      >
+        Add guest
+      </button>
+    </div>
+
+    <div formArrayName="guests">
+      <div *ngFor="let guest of guests.controls; let i = index">
+        <span>{{ guest.value }} </span>
+        <button type="button" (click)="removeguest(i)">Remove</button>
+      </div>
+    </div>
+
+    <div *ngIf=" guestInput.touched && guests.errors?.['minLengthArray']">
+      <small>You must add at least one guest</small>
+    </div>
+  </div>
+  <br />
+
+  <button type="submit" [disabled]="eventPlannerForm.invalid">Submit</button>
+</form>

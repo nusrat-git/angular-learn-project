@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { EmployeeListComponent } from './pages/employee-list/employee-list.component';
 import { StudentListComponent } from './pages/student-list/student-list.component';
 import { ExpensesComponent } from './pages/expenses/expenses.component';
+import { EventPlannerListComponent } from './pages/event-planner-list/event-planner-list.component';
 
 export const routes: Routes = [
   {
@@ -33,6 +34,10 @@ export const routes: Routes = [
   {
     path: 'expenses',
     component: ExpensesComponent,
+  },
+  {
+    path: 'event-planner',
+    component: EventPlannerListComponent,
   },
   {
     path: 'registration',

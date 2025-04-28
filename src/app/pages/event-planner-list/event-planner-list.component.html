@@ -1,0 +1,32 @@
+<app-event-planner-form
+  (submit)="onEventSubmit($event)"
+  [editEvent]="selectedEvent"
+/>
+
+<div class="table-container">
+  <h1>Events</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Date</th>
+        <th>Location</th>
+        <th>Guests</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let event of events">
+        <td>{{ event.title }}</td>
+        <td>{{ event.eventDate }}</td>
+        <td>{{ event.location }}</td>
+        <td>{{ event.guests.join(", ") }}</td>
+
+        <td>
+          <button (click)="onEditEvent(event)">Edit</button>
+          <button (click)="onDeleteEvent(event.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

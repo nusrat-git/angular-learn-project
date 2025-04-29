@@ -53,9 +53,16 @@
     </div>
 
     <div formArrayName="guests">
-      <div *ngFor="let guest of guests.controls; let i = index">
-        <span>{{ guest.value }} </span>
-        <button type="button" (click)="removeguest(i)">Remove</button>
+      <div
+        *ngFor="let guests of guests.controls; let i = index"
+        class="badge-container"
+      >
+        <span class="badge">
+          {{ guests.value }}
+          <span type="button" class="remove-btn" (click)="removeGuest(i)">
+            &#10005;
+          </span>
+        </span>
       </div>
     </div>
 

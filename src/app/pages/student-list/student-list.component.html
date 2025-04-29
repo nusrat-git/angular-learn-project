@@ -27,26 +27,30 @@
     <div>
       <label>Courses : </label>
       <div class="course-container">
-        <select title="course" [formControl]="courseInput">
+        <select
+          title="course"
+          [formControl]="courseInput"
+          (click)="addCourse()"
+        >
           <option value="" disabled selected>Select a course</option>
           <option *ngFor="let course of courseList" [value]="course">
             {{ course }}
           </option>
         </select>
-        <button
-          type="button"
-          (click)="addCourse()"
-          [disabled]="courseInput.invalid || !courseInput.value"
-        >
-          Add course
-        </button>
       </div>
     </div>
 
     <div formArrayName="courses">
-      <div *ngFor="let course of courses.controls; let i = index">
-        <span>{{ course.value }} </span>
-        <button type="button" (click)="removeCourse(i)">Remove</button>
+      <div
+        *ngFor="let course of courses.controls; let i = index"
+        class="badge-container"
+      >
+        <span class="badge">
+          {{ course.value }}
+          <span type="button" class="remove-btn" (click)="removeCourse(i)">
+            &#10005;
+          </span>
+        </span>
       </div>
     </div>
 

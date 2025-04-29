@@ -1,14 +1,21 @@
 <nav>
-  <a routerLink="">Home</a>
-  <a routerLink="dashboard">Dashboard</a>
-  <!-- <a routerLink="blogs">Blogs</a> -->
-  <!-- <a routerLink="admin">Admin</a> -->
-  <!-- <a routerLink="registration">Register</a> -->
-  <!-- <a routerLink="login">Log In</a> -->
-  <a routerLink="employees">Employees</a>
-  <a routerLink="students">Students</a>
-  <a routerLink="expenses">Expenses</a>
-  <a routerLink="event-planner">Event Planner</a>
-  <a routerLink="job-applications">Job Applications</a>
-  <a routerLink="task-management">Task management</a>
+  <a
+    routerLink=""
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    >Home</a
+  >
+  <a routerLink="dashboard" routerLinkActive="active">Dashboard</a>
+  <!-- <a routerLink="blogs"  routerLinkActive="active" >Blogs</a> -->
+  <!-- <a routerLink="admin"  routerLinkActive="active" >Admin</a> -->
+  <!-- <a routerLink="registration"  routerLinkActive="active" >Register</a> -->
+  <!-- <a routerLink="login"  routerLinkActive="active" >Log In</a> -->
+  <a routerLink="employees" routerLinkActive="active">Employees</a>
+  <a routerLink="students" routerLinkActive="active">Students</a>
+  <a routerLink="expenses" routerLinkActive="active">Expenses</a>
+  <a routerLink="event-planner" routerLinkActive="active">Event Planner</a>
+  <a routerLink="job-applications" routerLinkActive="active"
+    >Job Applications</a
+  >
+  <a routerLink="task-management" routerLinkActive="active">Task management</a>
 </nav>

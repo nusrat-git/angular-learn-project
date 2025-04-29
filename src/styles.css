@@ -52,6 +52,29 @@ small {
   color: red;
 }
 
+/* Style for the badge container */
+.badge-container {
+  display: inline-block;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+/* Styling for the skill badge */
+.badge {
+  background-color: #3d5772;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.remove-btn {
+  cursor: pointer;
+}
+
 button {
   padding: 8px 16px;
   /* margin-top: 10px; */

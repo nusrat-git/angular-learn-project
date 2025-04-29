@@ -275,9 +275,16 @@
         </div>
 
         <div formArrayName="skills">
-          <div *ngFor="let skill of skills.controls; let i = index">
-            <span>{{ skill.value }} </span>
-            <button type="button" (click)="removeSkill(i)">Remove</button>
+          <div
+            *ngFor="let skill of skills.controls; let i = index"
+            class="badge-container"
+          >
+            <span class="badge">
+              {{ skill.value }}
+              <span type="button" class="remove-btn" (click)="removeSkill(i)">
+                &#10005;
+              </span>
+            </span>
           </div>
         </div>
 

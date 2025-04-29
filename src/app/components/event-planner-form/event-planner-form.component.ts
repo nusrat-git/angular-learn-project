@@ -63,7 +63,7 @@ export class EventPlannerFormComponent implements OnInit {
     }
   }
 
-  removeguest(index: number) {
+  removeGuest(index: number) {
     this.guests.removeAt(index);
   }
 

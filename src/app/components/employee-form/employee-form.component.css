@@ -37,7 +37,35 @@
 /* Modal body */
 .modal-body {
   margin-bottom: 20px;
-  text-align: center;
+  /* text-align: center; */
+}
+
+label {
+  text-align: start;
+}
+
+.address label {
+  padding: 10px 0;
+}
+
+small {
+  text-align: start;
+}
+
+.address {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  align-items: start;
+  margin-bottom: 0;
+}
+
+.input {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  align-items: start;
+  margin-bottom: 0;
+  padding: 0;
 }
 
 /* Modal footer with buttons */

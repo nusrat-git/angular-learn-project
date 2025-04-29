@@ -30,7 +30,7 @@ form {
 }
 
 form div {
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
 label {
@@ -54,7 +54,7 @@ small {
 
 button {
   padding: 8px 16px;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   margin-right: 8px;
   background-color: #39877f;
   /* background-color: #79cfc7; */
@@ -72,6 +72,23 @@ button[disabled] {
 
 button:hover:not([disabled]) {
   background-color: #166d69;
+}
+
+.skill-btn {
+  margin-top: 10px;
+}
+
+.view-btn {
+  background-color: #59c078;
+  color: white;
+}
+
+.view-btn:hover {
+  background-color: #30a14c !important;
+}
+
+.view-btn:focus {
+  outline: none;
 }
 
 .delete-btn {

@@ -14,6 +14,7 @@ export interface Employee {
     postalCode: string;
   };
   skills: string[];
+  created: string;
 }
 
 @Injectable({

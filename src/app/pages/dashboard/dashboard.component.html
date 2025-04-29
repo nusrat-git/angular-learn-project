@@ -5,15 +5,15 @@
   <div class="summary-cards">
     <div class="card">
       <h3>Total Employees</h3>
-      <!-- <p class="number">{{ employees$.length | async }}</p> -->
+      <p class="number">{{ (employees$ | async)?.length }}</p>
     </div>
     <div class="card">
       <h3>Departments</h3>
-      <p class="number">8</p>
+      <p class="number">{{ departments.length }}</p>
     </div>
     <div class="card">
       <h3>New This Month</h3>
-      <p class="number">5</p>
+      <p class="number">{{ thisMonthEmployees.length }}</p>
     </div>
   </div>
 

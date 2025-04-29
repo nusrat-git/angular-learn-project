@@ -31,6 +31,9 @@
           <p>Postal Code: {{ employee.address.postalCode }}</p>
         </td>
         <td>
+          <button (click)="onEditEmployee(employee)" class="view-btn">
+            View
+          </button>
           <button (click)="onEditEmployee(employee)">Edit</button>
           <button (click)="onDeleteEmployee(employee.id)" class="delete-btn">
             Delete

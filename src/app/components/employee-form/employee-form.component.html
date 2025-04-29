@@ -18,7 +18,7 @@
       </small>
     </div>
   </div>
-  <br />
+
   <div>
     <label>Email : </label>
     <input type="email" formControlName="email" placeholder="Your email" />
@@ -30,7 +30,7 @@
       <small>Valid email is required</small>
     </div>
   </div>
-  <br />
+
   <div>
     <label>Position : </label>
     <input type="text" formControlName="position" placeholder="Your position" />
@@ -43,7 +43,7 @@
       <small>Position is required and can't be more than 15 characters</small>
     </div>
   </div>
-  <br />
+
   <div>
     <label>Department : </label>
     <input
@@ -60,12 +60,12 @@
       <small>Department is required and can't be more than 10 characters</small>
     </div>
   </div>
-  <br />
+
 
   <div formGroupName="address">
     <label>Address : </label>
-    <br />
-    <br />
+  
+  
     <label>Street : </label>
     <input type="text" formControlName="street" placeholder="input" />
     <div
@@ -90,7 +90,7 @@
       <small>Postal Code is required</small>
     </div>
   </div>
-  <br />
+
 
   <div>
     <div>
@@ -117,7 +117,7 @@
     </div>
   </div>
 
-  <br />
+
 
   <button type="submit" [disabled]="employeeForm.invalid">Submit</button>
 
@@ -148,7 +148,6 @@
             </small>
           </div>
         </div>
-        <br />
 
         <div>
           <label>Email : </label>
@@ -166,7 +165,6 @@
             <small>Valid email is required</small>
           </div>
         </div>
-        <br />
 
         <div>
           <label>Position : </label>
@@ -186,7 +184,6 @@
             >
           </div>
         </div>
-        <br />
 
         <div>
           <label>Department : </label>
@@ -207,46 +204,62 @@
             >
           </div>
         </div>
-        <br />
 
         <div formGroupName="address">
           <label>Address : </label>
-          <br />
-          <br />
-          <label>Street : </label>
-          <input type="text" formControlName="street" placeholder="Street" />
-          <div
-            *ngIf="
-              address.get('street')?.invalid && address.get('street')?.touched
-            "
-          >
-            <small>Street is required</small>
+
+          <div class="address">
+            <label>Street : </label>
+            <div class="input">
+              <input
+                type="text"
+                formControlName="street"
+                placeholder="Street"
+              />
+              <div
+                *ngIf="
+                  address.get('street')?.invalid &&
+                  address.get('street')?.touched
+                "
+              >
+                <small>Street is required</small>
+              </div>
+            </div>
           </div>
 
-          <label>City : </label>
-          <input type="text" formControlName="city" placeholder="City" />
-          <div
-            *ngIf="address.get('city')?.invalid && address.get('city')?.touched"
-          >
-            <small>City is required</small>
+          <div class="address">
+            <label>City : </label>
+            <div class="input">
+              <input type="text" formControlName="city" placeholder="City" />
+              <div
+                *ngIf="
+                  address.get('city')?.invalid && address.get('city')?.touched
+                "
+              >
+                <small>City is required</small>
+              </div>
+            </div>
           </div>
 
-          <label>Zip Code : </label>
-          <input
-            type="text"
-            formControlName="postalCode"
-            placeholder="Postal Code"
-          />
-          <div
-            *ngIf="
-              address.get('postalCode')?.invalid &&
-              address.get('postalCode')?.touched
-            "
-          >
-            <small>Postal Code is required</small>
+          <div class="address">
+            <label>Zip Code : </label>
+            <div class="input">
+              <input
+                type="text"
+                formControlName="postalCode"
+                placeholder="Postal Code"
+              />
+              <div
+                *ngIf="
+                  address.get('postalCode')?.invalid &&
+                  address.get('postalCode')?.touched
+                "
+              >
+                <small>Postal Code is required</small>
+              </div>
+            </div>
           </div>
         </div>
-        <br />
 
         <div>
           <label>Skills : </label>
@@ -255,6 +268,7 @@
             type="button"
             (click)="addSkill()"
             [disabled]="skillInput.invalid"
+            class="skill-btn"
           >
             Add Skill
           </button>
@@ -270,8 +284,6 @@
         <div *ngIf="skillInput.touched && skills.errors?.['minLengthArray']">
           <small>You must add at least one skill</small>
         </div>
-
-        <br />
 
         <button type="submit" [disabled]="employeeForm.invalid">Submit</button>
         <button type="button" (click)="onReset()">Reset</button>

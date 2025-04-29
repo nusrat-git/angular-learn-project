@@ -10,13 +10,9 @@
         "city": "fofof2323",
         "postalCode": "3423"
       },
-      "skills": [
-        "ofofoffo",
-        "edited",
-        "modal",
-        "newone"
-      ],
-      "id": "0"
+      "skills": ["ofofoffo", "edited", "modal", "newone"],
+      "id": "0",
+      "created": "2025-03-28"
     },
     {
       "id": "9db9",
@@ -29,10 +25,8 @@
         "city": "fsdfsd",
         "postalCode": "5452"
       },
-      "skills": [
-        "dgaa"
-      ],
-      "created": "2025-04-28"
+      "skills": ["dgaa"],
+      "created": "2025-03-28"
     },
     {
       "id": "62a8",
@@ -45,11 +39,7 @@
         "city": "sdfsdf",
         "postalCode": "34234"
       },
-      "skills": [
-        "dfafsdfnew",
-        "dsfd",
-        "sdfsdfsdf"
-      ],
+      "skills": ["dfafsdfnew", "dsfd", "sdfsdfsdf"],
       "created": "2025-04-28"
     },
     {
@@ -63,10 +53,7 @@
         "city": "fuufff",
         "postalCode": "4555"
       },
-      "skills": [
-        "uffff",
-        "lala"
-      ],
+      "skills": ["uffff", "lala"],
       "created": "2025-04-28"
     },
     {
@@ -80,9 +67,7 @@
         "city": "fsdfsdf",
         "postalCode": "34235"
       },
-      "skills": [
-        "fsdfsd"
-      ],
+      "skills": ["fsdfsd"],
       "created": "2025-04-28"
     },
     {
@@ -96,9 +81,7 @@
         "city": "fsdfsdf",
         "postalCode": "34235"
       },
-      "skills": [
-        "fsdfsd"
-      ],
+      "skills": ["fsdfsd"],
       "created": "2025-04-28"
     },
     {
@@ -112,9 +95,7 @@
         "city": "fsdfsdf",
         "postalCode": "34234"
       },
-      "skills": [
-        "fsdfsdf"
-      ],
+      "skills": ["fsdfsdf"],
       "created": "2025-04-28"
     },
     {
@@ -128,9 +109,7 @@
         "city": "hehehe",
         "postalCode": "772i29292"
       },
-      "skills": [
-        "hehehehe"
-      ],
+      "skills": ["hehehehe"],
       "created": "2025-04-28"
     },
     {
@@ -144,9 +123,7 @@
         "city": "hehehe",
         "postalCode": "772i29292"
       },
-      "skills": [
-        "hehehehe"
-      ],
+      "skills": ["hehehehe"],
       "created": "2025-04-28"
     },
     {
@@ -160,9 +137,7 @@
         "city": "hehehe",
         "postalCode": "772i29292"
       },
-      "skills": [
-        "hehehehe"
-      ],
+      "skills": ["hehehehe"],
       "created": "2025-04-28"
     },
     {
@@ -176,11 +151,7 @@
         "city": "sdfsdkf",
         "postalCode": "342"
       },
-      "skills": [
-        "dfsdf",
-        "mym",
-        "edi"
-      ],
+      "skills": ["dfsdf", "mym", "edi"],
       "created": "2025-04-28"
     }
   ],
@@ -206,18 +177,13 @@
       "title": "hehe",
       "eventDate": "2025-04-26",
       "location": "fsdfa",
-      "guests": [
-        "fsdfasdf",
-        "hehe"
-      ]
+      "guests": ["fsdfasdf", "hehe"]
     },
     {
       "title": "gagag",
       "eventDate": "2025-04-28",
       "location": "dfasd",
-      "guests": [
-        "new"
-      ],
+      "guests": ["new"],
       "id": "e3b6"
     }
   ],

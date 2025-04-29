@@ -22,7 +22,7 @@
         <td>{{ event.location }}</td>
         <td>{{ event.guests.join(", ") }}</td>
 
-        <td>
+        <td class="table-actions">
           <button (click)="onEditEvent(event)">Edit</button>
           <button (click)="onDeleteEvent(event.id)" class="delete-btn">
             Delete

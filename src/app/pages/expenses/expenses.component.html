@@ -21,7 +21,7 @@
         <td>{{ expense.category }}</td>
         <td>{{ expense.description }}</td>
         <td>{{ expense.expenseDate }}</td>
-        <td>
+        <td class="table-actions">
           <button (click)="onEditExpense(expense)">Edit</button>
           <button (click)="onDeleteExpense(expense.id)" class="delete-btn">
             Delete

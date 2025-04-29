@@ -26,13 +26,13 @@
   <div class="form-group">
     <label>Description : </label>
     <input type="text" formControlName="description" placeholder="Your text" />
-    <div
-      *ngIf="
-        expenseForm.get('description')?.invalid &&
-        expenseForm.get('description')?.touched
-      "
-    >
-      <small>Description is required</small>
+    <div *ngIf="expenseForm.get('description')?.touched">
+      <small *ngIf="expenseForm.get('description')?.hasError('required')"
+        >Description is required</small
+      >
+      <small *ngIf="expenseForm.get('description')?.hasError('maxlength')"
+        >Description must be withing 200 characters</small
+      >
     </div>
   </div>
 

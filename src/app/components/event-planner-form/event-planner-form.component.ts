@@ -32,9 +32,9 @@ export class EventPlannerFormComponent implements OnInit {
 
   addEventsForm(): FormGroup {
     return this.fb.group({
-      title: ['', [Validators.required]],
+      title: ['', [Validators.required, Validators.maxLength(50)]],
       eventDate: ['', [Validators.required]],
-      location: ['', [Validators.required]],
+      location: ['', [Validators.required, Validators.maxLength(40)]],
       guests: this.fb.array(
         (this.editEvent?.guests || []).map((guest: any) =>
           this.fb.control(guest)

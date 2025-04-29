@@ -30,8 +30,8 @@ export class ExpenseFormComponent implements OnInit {
   addExpenseForm(): FormGroup {
     return this.fb.group({
       amount: ['', [Validators.required]],
-      category: ['', [Validators.required]],
-      description: ['', [Validators.required]],
+      category: ['', [Validators.required, Validators.maxLength(10)]],
+      description: ['', [Validators.required, Validators.maxLength(150)]],
       expenseDate: ['', [Validators.required]],
     });
   }

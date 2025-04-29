@@ -150,6 +150,9 @@
               Add Skill
             </button>
           </div>
+          <div *ngIf="skillInput.touched && skills.errors?.['minLengthArray']">
+            <small>You must add at least one skill</small>
+          </div>
         </div>
 
         <!-- Display Skills -->
@@ -165,10 +168,6 @@
               >
             </span>
           </div>
-        </div>
-
-        <div *ngIf="skillInput.touched && skills.errors?.['minLengthArray']">
-          <small>You must add at least one skill</small>
         </div>
 
         <!-- Submit & Reset Buttons -->

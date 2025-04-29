@@ -1,6 +1,6 @@
 <h1>Add Event</h1>
 <form [formGroup]="eventPlannerForm" (ngSubmit)="onSubmit()">
-  <div>
+  <div class="form-group">
     <label>Title : </label>
     <input type="text" formControlName="title" placeholder="Your title" />
     <div *ngIf="eventPlannerForm.get('title')?.touched">
@@ -9,9 +9,8 @@
       </small>
     </div>
   </div>
-  <br />
 
-  <div>
+  <div class="form-group">
     <label>Event Date : </label>
     <input type="date" formControlName="eventDate" placeholder="input" />
     <div
@@ -23,9 +22,8 @@
       <small>Expiry date is required</small>
     </div>
   </div>
-  <br />
 
-  <div>
+  <div class="form-group">
     <label>Location : </label>
     <input type="text" formControlName="location" placeholder="Your text" />
     <div
@@ -37,11 +35,10 @@
       <small>Location is required</small>
     </div>
   </div>
-  <br />
 
-  <div>
-    <div>
-      <label>Guests : </label>
+  <div class="form-group">
+    <label>Guests : </label>
+    <div class="input-add-btn">
       <input [formControl]="guestInput" placeholder="Enter guest" />
       <button
         type="button"
@@ -51,26 +48,23 @@
         Add guest
       </button>
     </div>
-
-    <div formArrayName="guests">
-      <div
-        *ngFor="let guests of guests.controls; let i = index"
-        class="badge-container"
-      >
-        <span class="badge">
-          {{ guests.value }}
-          <span type="button" class="remove-btn" (click)="removeGuest(i)">
-            &#10005;
-          </span>
-        </span>
-      </div>
-    </div>
-
     <div *ngIf=" guestInput.touched && guests.errors?.['minLengthArray']">
       <small>You must add at least one guest</small>
     </div>
   </div>
-  <br />
+  <div formArrayName="guests">
+    <div
+      *ngFor="let guests of guests.controls; let i = index"
+      class="badge-container"
+    >
+      <span class="badge">
+        {{ guests.value }}
+        <span type="button" class="remove-btn" (click)="removeGuest(i)">
+          &#10005;
+        </span>
+      </span>
+    </div>
+  </div>
 
   <button type="submit" [disabled]="eventPlannerForm.invalid">Submit</button>
 </form>

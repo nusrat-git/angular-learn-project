@@ -31,9 +31,9 @@ import { ModalService } from '../../services/modal/modal.service';
   styleUrl: './employee-form.component.css',
 })
 export class EmployeeFormComponent implements OnInit {
-  employeeForm: FormGroup;
+  employeeForm: FormGroup = new FormGroup({});
 
-  editEmployee$!: Observable<Employee | null>; // Observable for edit employee
+  selectedEmployee$!: Observable<Employee | null>; // Observable for edit employee
   employees$!: Observable<Employee[]>;
   isModalOpen$!: Observable<boolean>;
 
@@ -45,7 +45,7 @@ export class EmployeeFormComponent implements OnInit {
           Validators.required,
           Validators.maxLength(20),
           // CustomValidators.uniqueName(this.employees$),
-          // ...(this.employeeService.editEmployeeSubject.getValue()
+          // ...(this.employeeService.selectedEmployeeSubject.getValue()
           //   ? []
           //   : [CustomValidators.uniqueName(this.employees$)]),
           // ...(this.employeeService.editEmployee
@@ -82,17 +82,19 @@ export class EmployeeFormComponent implements OnInit {
     private employeeService: EmployeeService,
     private modalService: ModalService
   ) {
-    this.employeeForm = this.createEmployeeForm();
+    // this.employeeForm = this.createEmployeeForm();
   }
 
   ngOnInit(): void {
+    this.employeeForm = this.createEmployeeForm();
+
     // this.employees$ = this.employeeService.employees$;
-    this.editEmployee$ = this.employeeService.editEmployee$;
+    this.selectedEmployee$ = this.employeeService.selectedEmployee$;
     this.isModalOpen$ = this.modalService.modalState$;
 
     // this.employeeForm = this.createEmployeeForm();
 
-    this.editEmployee$.subscribe((emp) => {
+    this.selectedEmployee$.subscribe((emp) => {
       if (emp) {
         this.employeeForm.patchValue(emp);
 
@@ -135,7 +137,7 @@ export class EmployeeFormComponent implements OnInit {
   onSubmit() {
     if (this.employeeForm.valid) {
       const currentEmployee =
-        this.employeeService.editEmployeeSubject.getValue();
+        this.employeeService.selectedEmployeeSubject.getValue();
 
       if (currentEmployee) {
         this.employeeService.updateEmployee(

@@ -1,16 +1,15 @@
-<tr>
-  <td>{{ employee.name }}</td>
-  <td>{{ employee.email }}</td>
-  <td>{{ employee.position }}</td>
-  <td>{{ employee.department }}</td>
-  <td>{{ employee.skills.join(", ") }}</td>
-  <td>
-    <p>Street: {{ employee.address.street }}</p>
-    <p>City: {{ employee.address.city }}</p>
-    <p>Postal Code: {{ employee.address.postalCode }}</p>
-  </td>
-  <td>
-    <button (click)="onEdit()">Edit</button> |
-    <button (click)="onDelete()">Delete</button>
-  </td>
-</tr>
+<div class="employee-card">
+  <h3>{{ employee?.name }}</h3>
+  <p><strong>Email:</strong> {{ employee?.email }}</p>
+  <p><strong>Position:</strong> {{ employee?.position }}</p>
+  <p><strong>Department:</strong> {{ employee?.department }}</p>
+
+  <h4>Address:</h4>
+  <p>{{ employee?.address?.street }}, {{ employee?.address?.city }}</p>
+  <p><strong>Postal Code:</strong> {{ employee?.address?.postalCode }}</p>
+
+  <h4>Skills:</h4>
+  <ul>
+    <li *ngFor="let skill of employee?.skills">{{ skill }}</li>
+  </ul>
+</div>

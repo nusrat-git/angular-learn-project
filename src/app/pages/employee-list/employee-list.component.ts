@@ -1,7 +1,6 @@
 import { CommonModule, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DataService } from '../../services/data/data.service';
 import { EmployeeFormComponent } from '../../components/employee-form/employee-form.component';
 import {
   Employee,
@@ -9,6 +8,7 @@ import {
 } from '../../services/employee/employee.service';
 import { Observable } from 'rxjs';
 import { ModalService } from '../../services/modal/modal.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-employee-list',
@@ -17,6 +17,7 @@ import { ModalService } from '../../services/modal/modal.service';
     NgFor,
     EmployeeFormComponent,
     CommonModule,
+    RouterLink,
     // MyCustomPipe,
     // CustomAttributeDirective,
   ],

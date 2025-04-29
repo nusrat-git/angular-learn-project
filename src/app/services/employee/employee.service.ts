@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, catchError, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, throwError } from 'rxjs';
 
 export interface Employee {
   id: string;
@@ -30,11 +30,11 @@ export class EmployeeService {
   private employeesSubject = new BehaviorSubject<Employee[]>([]);
   employees$ = this.employeesSubject.asObservable();
 
-  editEmployeeSubject = new BehaviorSubject<Employee | null>(null);
-  editEmployee$ = this.editEmployeeSubject.asObservable();
+  selectedEmployeeSubject = new BehaviorSubject<Employee | null>(null);
+  selectedEmployee$ = this.selectedEmployeeSubject.asObservable();
 
   setEditEmployee(employee: Employee | null) {
-    this.editEmployeeSubject.next(employee);
+    this.selectedEmployeeSubject.next(employee);
   }
 
   fetchEmployees(): void {
@@ -49,6 +49,12 @@ export class EmployeeService {
       .subscribe((employees) => {
         this.employeesSubject.next(employees);
       });
+  }
+
+  getEmployeeById(id: string): Observable<Employee> {
+    return this.employees$.pipe(
+      map((employees) => employees.find((emp) => emp.id === id)!)
+    );
   }
 
   addEmployee(employee: Employee): void {

@@ -31,7 +31,11 @@
           <p>Postal Code: {{ employee.address.postalCode }}</p>
         </td>
         <td>
-          <button (click)="onEditEmployee(employee)" class="view-btn">
+          <button
+            class="view-btn"
+            [routerLink]="['/employees', employee.id]"
+            [state]="employee"
+          >
             View
           </button>
           <button (click)="onEditEmployee(employee)">Edit</button>

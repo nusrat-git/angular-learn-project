@@ -72,7 +72,7 @@
         >Card number is required</small
       >
       <small
-        *ngIf="payment.get('cardNumber')?.touched && (payment.get('cardNumber')?.errors?.['minlength'] || payment.get('cardNumber')?.errors?.['maxlength'])"
+        *ngIf="payment.get('cardNumber')?.touched && (payment.get('cardNumber')?.errors?.['minlength'] || payment.get('cardNumber')?.hasError?.('maxlength'))"
       >
         Card number must be 16 digits
       </small>

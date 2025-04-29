@@ -1,50 +1,8 @@
 {
   "employees": [
     {
-      "name": "ogogog edited 2",
-      "email": "foffo@sfs",
-      "position": "fofofof",
-      "department": "fofof",
-      "address": {
-        "street": "fofof",
-        "city": "fofof2323",
-        "postalCode": "3423"
-      },
-      "skills": ["ofofoffo", "edited", "modal", "newone"],
-      "id": "0",
-      "created": "2025-03-28"
-    },
-    {
-      "id": "9db9",
-      "name": "nusrat",
-      "email": "nusrat@fsakdf",
-      "position": "pospso",
-      "department": "depe",
-      "address": {
-        "street": "fsdfs",
-        "city": "fsdfsd",
-        "postalCode": "5452"
-      },
-      "skills": ["dgaa"],
-      "created": "2025-03-28"
-    },
-    {
-      "id": "62a8",
-      "name": "edited",
-      "email": "fafsd@fasfsad",
-      "position": "dfsdfsdf",
-      "department": "dffadf",
-      "address": {
-        "street": "sdfsdfsd",
-        "city": "sdfsdf",
-        "postalCode": "34234"
-      },
-      "skills": ["dfafsdfnew", "dsfd", "sdfsdfsdf"],
-      "created": "2025-04-28"
-    },
-    {
       "id": "4dd9",
-      "name": "ufffffff done",
+      "name": "ufffffff done ",
       "email": "uff@ffff",
       "position": "ufff",
       "department": "ufff",
@@ -53,21 +11,10 @@
         "city": "fuufff",
         "postalCode": "4555"
       },
-      "skills": ["uffff", "lala"],
-      "created": "2025-04-28"
-    },
-    {
-      "id": "e738",
-      "name": "modal",
-      "email": "modal@dsaff",
-      "position": "fsdfadf",
-      "department": "fsdfsdf",
-      "address": {
-        "street": "fsdfsdf",
-        "city": "fsdfsdf",
-        "postalCode": "34235"
-      },
-      "skills": ["fsdfsd"],
+      "skills": [
+        "uffff",
+        "lala"
+      ],
       "created": "2025-04-28"
     },
     {
@@ -81,21 +28,9 @@
         "city": "fsdfsdf",
         "postalCode": "34235"
       },
-      "skills": ["fsdfsd"],
-      "created": "2025-04-28"
-    },
-    {
-      "id": "59b2",
-      "name": "hehe",
-      "email": "hehe@fsf",
-      "position": "fsdfsd",
-      "department": "fsdfds",
-      "address": {
-        "street": "fsadfdfdsf",
-        "city": "fsdfsdf",
-        "postalCode": "34234"
-      },
-      "skills": ["fsdfsdf"],
+      "skills": [
+        "fsdfsd"
+      ],
       "created": "2025-04-28"
     },
     {
@@ -109,7 +44,9 @@
         "city": "hehehe",
         "postalCode": "772i29292"
       },
-      "skills": ["hehehehe"],
+      "skills": [
+        "hehehehe"
+      ],
       "created": "2025-04-28"
     },
     {
@@ -123,7 +60,9 @@
         "city": "hehehe",
         "postalCode": "772i29292"
       },
-      "skills": ["hehehehe"],
+      "skills": [
+        "hehehehe"
+      ],
       "created": "2025-04-28"
     },
     {
@@ -137,7 +76,9 @@
         "city": "hehehe",
         "postalCode": "772i29292"
       },
-      "skills": ["hehehehe"],
+      "skills": [
+        "hehehehe"
+      ],
       "created": "2025-04-28"
     },
     {
@@ -151,7 +92,11 @@
         "city": "sdfsdkf",
         "postalCode": "342"
       },
-      "skills": ["dfsdf", "mym", "edi"],
+      "skills": [
+        "dfsdf",
+        "mym",
+        "edi"
+      ],
       "created": "2025-04-28"
     }
   ],
@@ -169,6 +114,13 @@
       "category": "test2",
       "description": "test2",
       "expenseDate": "2025-04-25"
+    },
+    {
+      "amount": 2.523453453453432e+84,
+      "category": "food vnsxvnbsvxnbsvxnbvasxvnbasxvbnasvxnbvasxvbn food vnsxvnbsvxnbsvxnbvasxvnbasxvbnasvxnbvasxvbn  food vnsxvnbsvxnbsvxnbvasxvnbasxvbnasvxnbvasxvbn  food vnsxvnbsvxnbsvxnbvasxvnbasxvbnasvxnbvasxvbn ",
+      "description": " spent on chips and cola spent on chips and colaspent on chips and colaspent on chips and colas spent on chips and cola spent on chips and colaspent on chips and colaspent on chips and colaspent on chips and colaspent on chips and colaspent on chips and cola spent on chips and cola spent on chips and colaspent on chips and colaspent on chips and colaspent on chips and colaspent on chips and colaspent on chips and cola spent on chips and cola spent on chips and colaspent on chips and colaspent on chips and colaspent on chips and colaspent on chips and colaspent on chips and cola spent on chips and cola spent on chips and colaspent on chips and colaspent on chips and colaspent on chips and colaspent on chips and colaspent on chips and cola spent on chips and cola spent on chips and colaspent on chips and colaspent on chips and colaspent on chips and colaspent on chips and colaspent on chips and cola spent on chips and cola spent on chips and colaspent on chips and colaspent on chips and colaspent on chips and colaspent on chips and colaspent on chips and colapent on chips and colaspent on chips and colaspent on chips and cola",
+      "expenseDate": "2025-04-25",
+      "id": "d82c"
     }
   ],
   "events": [
@@ -177,13 +129,18 @@
       "title": "hehe",
       "eventDate": "2025-04-26",
       "location": "fsdfa",
-      "guests": ["fsdfasdf", "hehe"]
+      "guests": [
+        "fsdfasdf",
+        "hehe"
+      ]
     },
     {
       "title": "gagag",
       "eventDate": "2025-04-28",
       "location": "dfasd",
-      "guests": ["new"],
+      "guests": [
+        "new"
+      ],
       "id": "e3b6"
     }
   ],
@@ -207,7 +164,7 @@
     {
       "id": "1",
       "title": "Learn Angular",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "id": "60d5",

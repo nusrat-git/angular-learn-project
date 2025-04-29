@@ -12,6 +12,7 @@ import { EventPlannerListComponent } from './pages/event-planner-list/event-plan
 import { JobApplicationListComponent } from './pages/job-application-list/job-application-list.component';
 import { TaskListComponent } from './pages/task-list/task-list.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { EmployeeCardComponent } from './components/employee-card/employee-card.component';
 
 export const routes: Routes = [
   {
@@ -33,6 +34,10 @@ export const routes: Routes = [
   {
     path: 'employees',
     component: EmployeeListComponent,
+  },
+  {
+    path: 'employees/:id',
+    component: EmployeeCardComponent,
   },
   {
     path: 'students',

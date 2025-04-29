@@ -1,0 +1,46 @@
+.employee-card {
+  background: linear-gradient(to right, #fdfbfb, #ebedee);
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 450px;
+  margin: 30px auto;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.employee-card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 28px;
+  color: #2c3e50;
+}
+
+.employee-card p {
+  font-size: 1.2rem;
+  margin: 6px 0;
+  color: #34495e;
+}
+
+.employee-card h4 {
+  margin-top: 20px;
+  font-size: 1.1rem;
+  color: #2980b9;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 4px;
+}
+
+.employee-card ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin-top: 10px;
+}
+
+.employee-card ul li {
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+  color: #2f3640;
+}
+
+.employee-card strong {
+  font-weight: 600;
+  color: #2c3e50;
+}

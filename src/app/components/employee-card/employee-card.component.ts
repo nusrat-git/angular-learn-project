@@ -1,5 +1,10 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import {
+  Employee,
+  EmployeeService,
+} from '../../services/employee/employee.service';
 import { NgFor } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-employee-card',
@@ -7,16 +12,22 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   templateUrl: './employee-card.component.html',
   styleUrl: './employee-card.component.css',
 })
-export class EmployeeCardComponent {
-  @Input() employee: any;
-  @Output() edit = new EventEmitter<number>();
-  @Output() delete = new EventEmitter<number>();
+export class EmployeeCardComponent implements OnInit {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private employeeService: EmployeeService
+  ) {}
 
-  onEdit() {
-    this.edit.emit(this.employee.id);
-  }
+  employee: Employee | undefined;
 
-  onDelete() {
-    this.delete.emit(this.employee.id);
+  ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+
+    if (id) {
+      this.employeeService.getEmployeeById(id).subscribe((emp) => {
+        this.employee = emp;
+      });
+    }
   }
 }

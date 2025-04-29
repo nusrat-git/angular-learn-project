@@ -125,13 +125,15 @@ export class EmployeeFormComponent implements OnInit {
     this.skills.removeAt(index);
   }
 
-  closeModal() {
-    this.modalService.closeModal();
-  }
-
   onReset() {
     this.employeeForm.reset();
     this.skills.clear();
+  }
+
+  closeModal() {
+    this.modalService.closeModal();
+    this.onReset();
+    this.employeeService.setEditEmployee(null);
   }
 
   onSubmit() {
@@ -152,8 +154,6 @@ export class EmployeeFormComponent implements OnInit {
       }
 
       this.modalService.closeModal();
-      this.onReset();
-      this.employeeService.setEditEmployee(null);
     }
   }
 }

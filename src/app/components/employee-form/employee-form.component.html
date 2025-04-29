@@ -1,141 +1,18 @@
-<!-- <h1>Add Employee</h1>
-<form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label>Name : </label>
-    <input type="text" formControlName="name" placeholder="Your name" />
-    <div *ngIf="employeeForm.get('name')?.touched">
-      <small *ngIf="employeeForm.get('name')?.errors?.['required']">
-        Name is required
-      </small>
-
-      <small *ngIf="employeeForm.get('name')?.errors?.['maxlength']">
-        Name can't be more than 20 characters
-      </small>
-      {{ employeeForm.get("name")?.hasError("nameNotUnique") }}
-
-      <small *ngIf="employeeForm.get('name')?.errors?.['nameNotUnique']">
-        Name should be unique
-      </small>
-    </div>
-  </div>
-
-  <div>
-    <label>Email : </label>
-    <input type="email" formControlName="email" placeholder="Your email" />
-    <div
-      *ngIf="
-        employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched
-      "
-    >
-      <small>Valid email is required</small>
-    </div>
-  </div>
-
-  <div>
-    <label>Position : </label>
-    <input type="text" formControlName="position" placeholder="Your position" />
-    <div
-      *ngIf="
-        employeeForm.get('position')?.invalid &&
-        employeeForm.get('position')?.touched
-      "
-    >
-      <small>Position is required and can't be more than 15 characters</small>
-    </div>
-  </div>
-
-  <div>
-    <label>Department : </label>
-    <input
-      type="text"
-      formControlName="department"
-      placeholder="Your department"
-    />
-    <div
-      *ngIf="
-        employeeForm.get('department')?.invalid &&
-        employeeForm.get('department')?.touched
-      "
-    >
-      <small>Department is required and can't be more than 10 characters</small>
-    </div>
-  </div>
-
-
-  <div formGroupName="address">
-    <label>Address : </label>
-  
-  
-    <label>Street : </label>
-    <input type="text" formControlName="street" placeholder="input" />
-    <div
-      *ngIf="address.get('street')?.invalid && address.get('street')?.touched"
-    >
-      <small>Street is required</small>
-    </div>
-
-    <label>City : </label>
-    <input type="text" formControlName="city" placeholder="input" />
-    <div *ngIf="address.get('city')?.invalid && address.get('city')?.touched">
-      <small>City is required</small>
-    </div>
-
-    <label>Zip Code : </label>
-    <input type="text" formControlName="postalCode" placeholder="input" />
-    <div
-      *ngIf="
-        address.get('postalCode')?.invalid && address.get('postalCode')?.touched
-      "
-    >
-      <small>Postal Code is required</small>
-    </div>
-  </div>
-
-
-  <div>
-    <div>
-      <label>Skills : </label>
-      <input [formControl]="skillInput" placeholder="Enter skill" />
-      <button
-        type="button"
-        (click)="addSkill()"
-        [disabled]="skillInput.invalid"
-      >
-        Add Skill
-      </button>
-    </div>
-
-    <div formArrayName="skills">
-      <div *ngFor="let skill of skills.controls; let i = index">
-        <span>{{ skill.value }} </span>
-        <button type="button" (click)="removeSkill(i)">Remove</button>
-      </div>
-    </div>
-
-    <div *ngIf=" skillInput.touched && skills.errors?.['minLengthArray']">
-      <small>You must add at least one skill</small>
-    </div>
-  </div>
-
-
-
-  <button type="submit" [disabled]="employeeForm.invalid">Submit</button>
-
-  <button type="button" (click)="onReset()">Reset</button>
-</form> -->
-
 <!-- Modal -->
 <div class="modal-overlay" *ngIf="isModalOpen$ | async">
   <div class="modal-content">
     <div class="modal-header">
-      <span>Add Employee</span>
+      <span>{{
+        (selectedEmployee$ | async) ? "Update Employee" : "Add Employee"
+      }}</span>
       <span class="close-btn" (click)="closeModal()">×</span>
     </div>
     <div class="modal-body">
       <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
-        <div>
-          <label>Name : </label>
-          <input type="text" formControlName="name" placeholder="Your name" />
+        <!-- Name -->
+        <div class="form-group">
+          <label>Name: </label>
+          <input type="text" formControlName="name" placeholder="Enter name" />
           <div *ngIf="employeeForm.get('name')?.touched">
             <small *ngIf="employeeForm.get('name')?.errors?.['required']">
               Name is required
@@ -149,12 +26,13 @@
           </div>
         </div>
 
-        <div>
-          <label>Email : </label>
+        <!-- Email -->
+        <div class="form-group">
+          <label>Email: </label>
           <input
             type="email"
             formControlName="email"
-            placeholder="Your email"
+            placeholder="Enter email"
           />
           <div
             *ngIf="
@@ -166,51 +44,52 @@
           </div>
         </div>
 
-        <div>
-          <label>Position : </label>
-          <input
-            type="text"
-            formControlName="position"
-            placeholder="Your position"
-          />
-          <div
-            *ngIf="
-              employeeForm.get('position')?.invalid &&
-              employeeForm.get('position')?.touched
-            "
-          >
-            <small
-              >Position is required and can't be more than 15 characters</small
+        <div class="form-group-flex">
+          <!-- Position -->
+          <div class="form-group">
+            <label>Position: </label>
+            <input
+              type="text"
+              formControlName="position"
+              placeholder="Enter position"
+            />
+            <div
+              *ngIf="
+                employeeForm.get('position')?.invalid &&
+                employeeForm.get('position')?.touched
+              "
             >
+              <small>Position is required and can't exceed 15 characters</small>
+            </div>
+          </div>
+
+          <!-- Department -->
+          <div class="form-group">
+            <label>Department: </label>
+            <input
+              type="text"
+              formControlName="department"
+              placeholder="Enter department"
+            />
+            <div
+              *ngIf="
+                employeeForm.get('department')?.invalid &&
+                employeeForm.get('department')?.touched
+              "
+            >
+              <small
+                >Department is required and can't exceed 10 characters</small
+              >
+            </div>
           </div>
         </div>
 
+        <!-- Address -->
         <div>
-          <label>Department : </label>
-          <input
-            type="text"
-            formControlName="department"
-            placeholder="Your department"
-          />
-          <div
-            *ngIf="
-              employeeForm.get('department')?.invalid &&
-              employeeForm.get('department')?.touched
-            "
-          >
-            <small
-              >Department is required and can't be more than 10
-              characters</small
-            >
-          </div>
-        </div>
-
-        <div formGroupName="address">
-          <label>Address : </label>
-
-          <div class="address">
-            <label>Street : </label>
-            <div class="input">
+          <h4 class="address-label">Address</h4>
+          <div formGroupName="address" class="address-container form-group">
+            <div class="form-group">
+              <label>Street: </label>
               <input
                 type="text"
                 formControlName="street"
@@ -225,11 +104,9 @@
                 <small>Street is required</small>
               </div>
             </div>
-          </div>
 
-          <div class="address">
-            <label>City : </label>
-            <div class="input">
+            <div class="form-group">
+              <label>City: </label>
               <input type="text" formControlName="city" placeholder="City" />
               <div
                 *ngIf="
@@ -239,11 +116,9 @@
                 <small>City is required</small>
               </div>
             </div>
-          </div>
 
-          <div class="address">
-            <label>Zip Code : </label>
-            <div class="input">
+            <div class="form-group">
+              <label>Postal Code: </label>
               <input
                 type="text"
                 formControlName="postalCode"
@@ -255,25 +130,29 @@
                   address.get('postalCode')?.touched
                 "
               >
-                <small>Postal Code is required</small>
+                <small>Postal code is required</small>
               </div>
             </div>
           </div>
         </div>
 
-        <div>
-          <label>Skills : </label>
-          <input [formControl]="skillInput" placeholder="Enter skill" />
-          <button
-            type="button"
-            (click)="addSkill()"
-            [disabled]="skillInput.invalid"
-            class="skill-btn"
-          >
-            Add Skill
-          </button>
+        <!-- Skills -->
+        <div class="form-group">
+          <label>Skills:</label>
+          <div class="input-add-btn">
+            <input [formControl]="skillInput" placeholder="Enter skill" />
+            <button
+              type="button"
+              (click)="addSkill()"
+              [disabled]="skillInput.invalid"
+              class="skill-btn"
+            >
+              Add Skill
+            </button>
+          </div>
         </div>
 
+        <!-- Display Skills -->
         <div formArrayName="skills">
           <div
             *ngFor="let skill of skills.controls; let i = index"
@@ -281,9 +160,9 @@
           >
             <span class="badge">
               {{ skill.value }}
-              <span type="button" class="remove-btn" (click)="removeSkill(i)">
-                &#10005;
-              </span>
+              <span type="button" class="remove-btn" (click)="removeSkill(i)"
+                >&#10005;</span
+              >
             </span>
           </div>
         </div>
@@ -292,8 +171,13 @@
           <small>You must add at least one skill</small>
         </div>
 
-        <button type="submit" [disabled]="employeeForm.invalid">Submit</button>
-        <button type="button" (click)="onReset()">Reset</button>
+        <!-- Submit & Reset Buttons -->
+        <div class="form-buttons">
+          <button type="submit" [disabled]="employeeForm.invalid">
+            Submit
+          </button>
+          <button type="button" (click)="onReset()">Reset</button>
+        </div>
       </form>
     </div>
     <div class="modal-footer">

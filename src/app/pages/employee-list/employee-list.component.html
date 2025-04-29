@@ -30,7 +30,7 @@
           <p>City: {{ employee.address.city }}</p>
           <p>Postal Code: {{ employee.address.postalCode }}</p>
         </td>
-        <td>
+        <td class="table-actions">
           <button
             class="view-btn"
             [routerLink]="['/employees', employee.id]"

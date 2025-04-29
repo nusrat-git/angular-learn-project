@@ -257,3 +257,8 @@ th {
 td p {
   margin: 0;
 }
+
+.table-actions {
+  display: flex;
+  gap: 0.5rem;
+}

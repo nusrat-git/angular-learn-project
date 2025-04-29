@@ -1,5 +1,11 @@
+<app-employee-form />
+
 <div class="employee-card">
-  <h3>{{ employee?.name }}</h3>
+  <div class="card-header">
+    <h3>{{ employee?.name }}</h3>
+    <button class="edit-btn" (click)="onEditEmployee(employee)">✎ Edit</button>
+  </div>
+
   <p><strong>Email:</strong> {{ employee?.email }}</p>
   <p><strong>Position:</strong> {{ employee?.position }}</p>
   <p><strong>Department:</strong> {{ employee?.department }}</p>
@@ -9,7 +15,11 @@
   <p><strong>Postal Code:</strong> {{ employee?.address?.postalCode }}</p>
 
   <h4>Skills:</h4>
-  <ul>
-    <li *ngFor="let skill of employee?.skills">{{ skill }}</li>
-  </ul>
+  <p class="skills">
+    {{ employee?.skills?.join(", ") }}
+  </p>
+
+  <div class="card-actions">
+    <button class="back-btn" (click)="goBack()">← Back</button>
+  </div>
 </div>

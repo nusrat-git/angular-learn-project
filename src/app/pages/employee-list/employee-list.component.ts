@@ -9,6 +9,7 @@ import {
 import { Observable } from 'rxjs';
 import { ModalService } from '../../services/modal/modal.service';
 import { RouterLink } from '@angular/router';
+import { ConfirmModalComponent } from '../../components/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-employee-list',
@@ -18,6 +19,7 @@ import { RouterLink } from '@angular/router';
     EmployeeFormComponent,
     CommonModule,
     RouterLink,
+    ConfirmModalComponent,
     // MyCustomPipe,
     // CustomAttributeDirective,
   ],
@@ -36,11 +38,7 @@ export class EmployeeListComponent implements OnInit {
   ngOnInit(): void {
     this.employees$ = this.employeeService.employees$;
 
-    //  this.modalService.modalState$.subscribe((state) => {
-    // });
     this.isModalOpen$ = this.modalService.modalState$;
-
-    // isModalOpen$: Observable<boolean> = this.modalService.modalState$;
   }
 
   openModal() {
@@ -53,6 +51,6 @@ export class EmployeeListComponent implements OnInit {
   }
 
   onDeleteEmployee(id: string) {
-    this.employeeService.deleteEmployee(id);
+    this.modalService.openConfirmModal(id);
   }
 }
